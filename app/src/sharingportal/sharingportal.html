@@ -1,0 +1,94 @@
+<div id="sharing" class="hboxLib">
+	<div class="vboxLib containerSharing">
+		<span class="titleFilter color-default">Filtros</span>
+		<div class="vboxLib containerSharingLib">
+			<label class="color-default">Usuário</label>
+			<div class="input-group">
+				<input type="text" class="form-control color-default fontsSharingPortal" placeholder="Usuário" ng-model="ctrl.codUsuDestiny"/>
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</div>
+			</div>
+		</div>
+	
+		<div class="vboxLib  containerSharingLib">
+			<label class="color-default">Período Compartilhamento</label>
+			<div class="hboxLib">
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Inicio" ng-model="ctrl.dtDevolutionIni" required/>
+				<span class="center justify-center spanAShare"> a </span>
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Fim" ng-model="ctrl.dtDevolutionFin" required/>
+			</div>
+		</div>
+
+		<div class="vboxLib  containerSharingLib">
+			<label class="color-default">Período Devolução</label>
+			<div class="hboxLib">
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Inicio" ng-model="ctrl.dtDevolutionIni" required/>
+				<span class="center justify-center  spanAShare"> a </span>
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Fim" ng-model="ctrl.dtDevolutionFin" required/>
+			</div>
+		</div>
+
+		<div class="vboxLib  containerSharingLib">
+			<label class="color-default">Status</label>
+			<select name="statusFriendsSelect" class="form-control color-default fontsSharingPortal" id="statusFriendsSelect" ng-model="ctrl.statusFriends">
+					<option value="" class="color-default fontsSharingPortal">---Selecionar---</option> <!-- not selected / blank option -->
+					<option ng-Repeat="data in ctrl.statusFriendsOptions" class="color-default fontsSharingPortal" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+			</select>
+		</div>
+	</div>
+	<!-- <div class="vboxLib" id="divGrids">
+		<div id="sharingGridLibShare" class="table-responsive">
+			<span class="color-default">Compartilhamentos</span>    
+			<table class="table table-bordered color-default">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Solicitante</th>
+						<th>Data Compartilhamento</th>
+						<th>Valor Compartilhamento</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in ctrl.sharing">
+						<td>{{data.sharing}}</td>
+						<td>{{data.userDestiny}}</td>
+						<td>{{data.sharingDateAndHour}}</td>
+						<td>{{data.sharingValue}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="sharingGridItemLibShare" class="table-responsive">          
+			<span class="color-default">Itens</span>        
+			<table class="table table-bordered color-default">
+				<thead>
+				<tr>
+					<th>Código</th>
+					<th>Solicitante</th>
+					<th>Data Compartilhamento</th>
+					<th>Valor Compartilhamento</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="data in ctrl.sharing">
+					<td>{{data.sharing}}</td>
+					<td>{{data.userDestiny}}</td>
+					<td>{{data.sharingDateAndHour}}</td>
+					<td>{{data.sharingValue}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div> 
+	</div> -->
+	<div id="gridsLibSharing" class="vboxLib color-default" style="width: 100%">
+		<span>Compartilhamentos</span>
+		<ag-grid id="gridSharing"  class="color-default" grid-options="ctrl.gridOptions" class="flex">
+		</ag-grid>
+		<span>Itens</span>
+		<ag-grid id="gridSharingItem" class="color-default" grid-options="ctrl.gridOptionsItens" class="flex">
+		</ag-grid>
+	</div>
+	<!-- <ag-grid grid-options="ctrl.gridOptions" flex>
+	</ag-grid> -->
+</div>

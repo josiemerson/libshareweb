@@ -1,0 +1,26 @@
+#map {
+    width: auto;
+    height: 615px;
+        /* min-height: 615px; */
+  }
+#headerPopupMap{
+    color: black
+}
+
+img {
+    width: 100px; 
+    height: 100px; 
+    /* background: #EB974E;  */
+    -moz-border-radius: 50px; 
+    -webkit-border-radius: 50px; 
+    border-radius: 50px; 
+}
+
+.circle { 
+    width: 100px; 
+    height: 100px; 
+    /* background: #EB974E;  */
+    -moz-border-radius: 50px; 
+    -webkit-border-radius: 50px; 
+    border-radius: 50px; 
+  }

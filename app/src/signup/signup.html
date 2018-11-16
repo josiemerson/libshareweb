@@ -1,0 +1,84 @@
+<!--<div>
+	<form name="formSignup">
+		<div class="blocktext">
+			<h3 class="blockcenter">Cadastro inicial!</h3>
+			
+			<label>Email
+				<input lib-blur class="correct" name="email" ng-model="ctrl.email" type="email" placeholder="Email" required autofocus />
+			</label>				
+			<div role="alert">
+				<span ng-class="error" ng-show="formSignup.email.$error.email">Email não é valido!</span>
+			</div>
+			
+			<div>
+				<lib-Checkbox lib-model="ctrl.checkzinho" lib-label="Check Jojo"></lib-Checkbox>
+				<label>Senha
+					<input lib-blur class="correct" name="password" ng-model="ctrl.password" type="password" placeholder="Digite a senha" required />
+					<span class="errorLabel" ng-show="ctrl.passwordRepeatIsEmpty">Este campo é obrigatório.</span>
+				</label>				
+			</div>
+			
+			<div>
+				<label>Repita senha
+					<input  lib-blur class="correct"  name="passwordRepeat" ng-model="ctrl.passwordRepeat" type="password" placeholder="Repita a senha" required />
+					<span class="errorLabel" ng-show="ctrl.passwordIsEmpty">Este campo é obrigatório.</span>
+					<span class="errorLabel" ng-show="ctrl.showMessageDiffsWithPass">As senhas devem ser iguais, digite novamente.</span>
+				</label>
+			</div>
+			<br/> <button ng-click="ctrl.signup()"><i class="fa fa-save"></i>Salvar</button>
+		</div>
+	</form> 
+</div>-->
+<div id="form-container">
+	<div class="panel" id="form-box">
+		<form name="formSignup">
+			<h1 class="text-center color-default">Cadastar</h1>
+
+			<div class="form-group">
+				<label class="sr-only" for="login">Email</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-user"></span>
+					</div>
+					<input type="email" name="email" ng-model="ctrl.email" class="form-control" required autofocus placeholder="Seu email de usuário">
+						
+				</div>
+				<div class="input-group  vboxLib" ng-show="formSignup.email.$error.email || ctrl.emailIsEmpty">
+					<span class="errorLabel" ng-show="ctrl.emailIsEmpty" >Este campo é obrigatório.</span>
+					<span class="errorLabel" ng-show="formSignup.email.$error.email">Email não é valido!</span>
+				</div>	
+			</div>
+
+			<div class="form-group">
+				<label class="sr-only" for="senha">Senha</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-lock"></span>
+					</div>
+					<input type="password" name="senha" ng-model="ctrl.password" class="form-control" placeholder="Digite sua senha">
+				</div>
+				<div class="input-group" ng-show="ctrl.passwordIsEmpty">
+					<span class="errorLabel" >Este campo é obrigatório.</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="repeatsenha">RepeatSenha</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-lock"></span>
+					</div>
+					<input type="password" name="repeatsenha" ng-model="ctrl.repeatPassword" class="form-control" placeholder="Repita sua senha">
+				</div>
+				<div class="input-group vboxLib" ng-show="ctrl.passwordRepeatIsEmpty || ctrl.showMessageDiffsWithPass"">
+					<span class="errorLabel" ng-show="ctrl.passwordRepeatIsEmpty">Este campo é obrigatório.</span>					
+					<span class="errorLabel" ng-show="ctrl.showMessageDiffsWithPass">As senhas devem ser iguais.</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input value="Cadastrar"  ng-click="ctrl.signup(ctrl.email, ctrl.password)" 
+				class="btn btn-success form-control">
+			</div>
+		</form>
+	</div>
+</div>

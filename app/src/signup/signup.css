@@ -1,0 +1,22 @@
+.blocktext {
+  margin-left: auto;
+  margin-right: auto;
+  width: 24em;
+  position: relative;
+}
+
+.hbox {
+  text-align: center;
+  align: center
+}
+
+.vbox {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.errorLabel {
+  color: #ff2a00;
+  height: 20px;
+  border-radius: 2px;
+}

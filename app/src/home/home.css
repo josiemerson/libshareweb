@@ -1,0 +1,108 @@
+body {
+    /* background-image: url("../../img/menuSearch/header.png"); */
+    background-repeat: no-repeat;
+    /* background-color: rgb(237,219,193); */
+    background-color: rgb(231, 231, 231);
+    background-size: contain;
+    color: #fff;
+	font-family: "Helvetica Neue", sans-serif;
+    padding: 0; 
+    margin: 0; 
+    height: -webkit-fill-available;
+}
+
+html {
+    /* height: -webkit-fill-available; */
+}
+
+.flex {
+    display: flex;
+}
+
+.expandAll{
+    flex : 1;
+}
+
+.stretch{
+align-items: stretch;
+}
+
+.color-default{
+    color: rgb(119, 119, 119);
+}
+
+.background-default{
+    background-color: rgb(231, 231, 231);
+}
+
+.flex-start {
+	align-items: flex-start;
+}
+
+.flex-end {
+    align-items: flex-end;
+}
+
+.center {
+	align-items: center;
+}
+
+.baseline {
+	align-items: baseline;
+}
+
+.column {
+	flex-direction: column;
+}
+
+.align-center {
+	justify-content: center;
+	align-items: center;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.justify-end{
+    justify-content: flex-end;
+}
+
+.justify-start{
+    justify-content: flex-start;
+}
+
+.align-end {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.fieldsLib {
+    height: 35px;
+    border-radius: 5px;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: blueviolet;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.vboxLib{
+    display: flex;
+    flex-direction: column;
+  }
+
+.hboxLib{
+    display: flex;
+    flex-direction: row;
+  }
+  

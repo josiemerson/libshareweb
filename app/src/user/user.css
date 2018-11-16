@@ -1,0 +1,108 @@
+/* .vboxUser{
+  display: flex;
+  flex-direction: column;
+}
+
+.hboxUser{
+  display: flex;
+  flex-direction: row;
+} */
+
+#user {
+    /* background-color: rgba(134, 120, 182,.9); */
+    /* border-radius: 10px; */
+    margin: 10px 10px;
+    height: auto;
+}
+  
+#user .spanBoldUser {
+    font-weight: bold;
+}
+
+#user .headerUser{
+    float: left;
+    position: relative;
+    /* height: 127px; */
+    width: auto;
+    height: auto;
+}
+
+  #user .imageUser {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#user .imageUser img{
+    background-color: #fff;
+}
+  
+#user .imageUser a{
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+#user .imageUser a:hover{
+    text-decoration: underline;
+    color:#165183;
+}
+
+#user .headerUser .headerContainerUser {
+    width: 100%;
+    padding-top: 10px;
+}
+
+/* @media (max-width: 420px) {
+#user .headerUser .headerContainerUser > div {
+    width: 60%;
+    padding-top: 10px;
+} */
+
+.headerContainerUser > div {
+    width: calc(100% - 10px);
+    /* padding-top: 10px; */
+}
+
+.headerContainerUser div label {
+    padding-right: 10px;
+    /* width: 120px; */
+}
+
+.headerContainerUser div input {
+    margin-right: 10px;
+    width: auto;
+}
+
+.buttonUser{
+    width: 100px;
+    margin: 10px 10px 10px 0px;  
+}
+
+.addressInputUser {
+    width: 80%;
+}
+
+.nroInputUser{
+    width: 20%;
+}
+
+.hboxButtonUser{
+    padding-top: 0px;
+    margin-top: 10px; 
+}
+.vboxLibUser{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+#form-container {
+    width: 100vw;
+    height: 100vh;
+    /* background: #6C7A89; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+  }

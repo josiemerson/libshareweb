@@ -1,0 +1,165 @@
+/* .vboxBookcase{
+  display: flex;
+  flex-direction: column;
+}
+
+.hboxBookcase{
+  display: flex;
+  flex-direction: row;
+} */
+
+#bookcase {
+  border-radius: 10px;
+  margin: 10px 10px;
+  height: auto;
+}
+
+#bookcase .spanBoldBookcase {
+  font-weight: bold;
+}
+
+#bookcase .headerBookcase ul:hover{
+  cursor: default;
+}
+
+#bookcase .headerBookcase{
+  float: left;
+  position: relative;
+  /* height: 127px; */
+  width: auto;
+  height: auto;
+}
+
+#bookcase .headerBookcase .headerContainerBookcase{
+  width: 100%;
+  padding-top: 10px;
+}
+
+#bookcase .headerBookcase .headerDescBookcase{
+  width: calc(80% /2);
+}
+
+#bookcase .headerBookcase img{
+  margin: 20px 20px;
+  height : "40px"; 
+  width : "40px";
+}
+
+#bookcase .estanteBookcase {
+  margin: 0px 10px;
+  padding-top: 10px;
+}
+
+#bookcase .estanteBookcase h3 {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0px;
+  padding-top: 10px;
+  /* border-top: solid 1px; */
+  /* border-bottom: solid 1px; */
+  width: fit-content;
+
+}
+
+#bookcase .listBookcase{
+  color: black;
+  position: relative;
+  overflow:scroll;
+  overflow:auto;
+  height: auto;
+  width: auto;
+}
+
+#bookcase .listBookcase .imgBookcase{
+  /* border-radius: 0px; */
+  margin: 0px 10px;
+  height: 130px;
+}
+
+#bookcase  .listBookcase ul {
+  /* border-radius: 10px; */
+  border-top: 1px solid;
+  margin-top: 10px;
+  list-style-type: none;
+}
+
+#bookcase  .listBookcase ul li {
+  padding-right: 20px;
+  padding-top : 10px;
+}
+
+.hrBookcase {
+  border-color:#333;
+  box-sizing:border-box;
+  width: calc(100% - 10px);  
+  margin: 10px 10px 0px 0px;
+  padding-right: 10px;
+}
+
+.carLearning {
+  margin-right: 20px;
+}
+
+#carOfShare input,
+#carOfShare button{
+  margin-right: 10px;
+}
+
+#carOfShare #okSolicitation > span > span{
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+#carOfLearning ul {
+  padding-left: 0px;
+}
+
+#infoBooks > span {
+  margin-bottom: 5px;
+}
+
+#carOfShare #backToList{
+ border: solid 1px !important;
+ color:black;
+}
+
+.qtdAddBooks{
+  width: 23px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: red;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+}
+
+#bookcase .addFriends {
+  margin-right: 20px;
+}
+
+#bookcase #backToList > span > span,
+#bookcase #addSharing > span > span,
+#bookcase .addFriends > span > span,
+#bookcase #removeSharing > span > span{
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.disabledBookCase {
+  color: #0b4601
+}
+
+.onStatusBookcase {
+  border-radius: 5px;
+  color: green;
+}
+
+.ofStatusBookcase {
+  border-radius: 5px;
+  color: red;
+}
+
+#centerBookCaseSolicitation select {
+  width: auto;
+  margin-left: 5px;
+}

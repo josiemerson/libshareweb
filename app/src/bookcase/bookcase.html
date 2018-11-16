@@ -1,0 +1,128 @@
+<div id="bookcase" class="vboxLib">
+	<div class="headerBookcase hboxLib" ng-show="!ctrl.visibleListCarOfBooks">
+		<img class="circle" src="{{ctrl.imageProfile}}" alt="Smiley face"/>
+		<div class="hboxLib headerContainerBookcase" style="width: 100%">
+			<div class="vboxLib headerDescBookcase">
+				<span class="color-default"><span class="spanBoldBookcase color-default">Nome: </span>{{ctrl.profile.name}} {{ctrl.profile.lastName}}</span>
+				<span class="color-default" ng-show="ctrl.profile.allowShowPhone == 'S'"><span class="spanBoldBookcase color-default" >Telefone: </span>{{ctrl.profile.telephone}}</span>
+				<span class="color-default"><span class="spanBoldBookcase color-default" >Cidade: </span>{{ctrl.profile.city}}</span>
+				<span class="color-default"><span class="spanBoldBookcase color-default" >Estado: </span>{{ctrl.profile.state}}</span>
+				<span class="color-default"><span class="spanBoldBookcase color-default" >Pais: </span>{{ctrl.profile.country}}</span>
+			</div>
+		</div>
+		<div class="hboxLib expandAll flex center justify-center">
+			<div  ng-show="ctrl.statusFriend != 'P'">
+				<button ng-click="ctrl.addOrRemoveFriend(ctrl.statusFriend)" 
+					class="addFriends btn {{ctrl.typeBtnFriend}}">
+					<span class="glyphicon glyphicon-plus-sign"><span> {{ctrl.descriptionFriend}}</span></span>
+				</button>
+			</div>
+			<div class="btn-group"  ng-show="ctrl.statusFriend == 'P'">
+				<button type="button" class="addFriends btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-user">
+					<span> {{ctrl.descriptionFriend}}</span></span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a ng-click="ctrl.addOrRemoveFriend(ctrl.statusFriend)">
+						<span class="glyphicon glyphicon-remove-sign"></span> Cancelar solicitação</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="hboxLib">
+		<div class="flex expandAll">
+			<span class="estanteBookcase color-default"><h3>{{ctrl.titleDinamic}}</h3></span>
+		</div>
+		<div id="carOfShare" class="flex expandAll hboxLib align-end carLearning">
+				<button id="okSolicitation" ng-click="ctrl.concluirSolicitation()"  ng-disabled="ctrl.listBooksCarOfKnowing.length == 0" ng-show="ctrl.visibleListCarOfBooks" class="btn btn-success">
+					<span class="glyphicon  glyphicon-ok"><span> Enviar solicitação</span></span>
+				</button>
+
+				<button id="backToList" ng-click="ctrl.backToList()" ng-show="ctrl.visibleListCarOfBooks"
+					class="btn btn-secondary">
+					<span class="glyphicon glyphicon-arrow-left"><span> Livros</span></span>
+				</button>
+
+				<div class="hboxLib"  ng-show="!ctrl.visibleListCarOfBooks" >
+					<input class="form-control" ng-model="ctrl.queryBook" type="text" placeholder="Filtrar livros" autofocus/>
+				</div>
+				<div  class="hboxLib" style=" width: 45px; height: 34px;float: left;">
+					<div class="flex" style="position: absolute;">
+						<span ng-disabled="ctrl.qtdAddBooks == 0 || ctrl.visibleListCarOfBooks" ng-click="ctrl.openCarKnowing()" style=" width: 45px; height: 34px;" class="glyphicon glyphicon-briefcase btn btn-info"></span>
+					</div>
+					<div ng-show="ctrl.qtdAddBooks > 0" style="position: absolute;" class="flex">
+						<span class="qtdAddBooks">{{ctrl.qtdAddBooks}}</span>				
+					</div>
+				</div>
+		</div>
+	</div>
+	<div class="listBookcase" ng-show="!ctrl.visibleListCarOfBooks">		
+		<ul>
+			<li ng-repeat="book in ctrl.books | filter: ctrl.queryBook |orderBy: 'name'">
+				<div class="hboxLib">
+					<div class="flex">
+						<img class="img-thumbnail imgBookcase" src="{{book.pathFoto}}" alt="Smiley face"/>
+					</div>
+					<div class="vboxLib expandAll flex">
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Titulo: </span>{{book.name}}</span>
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Autor: </span>{{book.author}}</span>
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Editora: </span>{{book.publishingCompany}}</span>
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Lançamento: </span>{{book.releaseYear}}</span>
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Genêro: </span>{{book.genrePresentation}}</span>
+						<span class="color-default"><span class="spanBoldBookcase color-default" >Tipo: </span>{{book.sharingTypePresentation}}</span>
+						<span class="color-default" ng-show="{{book.valueSharing > 0}}"><span class="spanBoldBookcase color-default" >Valor: </span>{{book.valueSharing}}</span>
+						<span class="{{book.statusBookcase}}"><span class="spanBoldBookcase" >Status: </span>{{book.bookStatusPresentation}}</span>
+					</div>
+					<div class="vboxLib expandAll">
+						<span class="spanBoldBookcase color-default" >Descrição: </span>	
+						<span class="color-default">{{book.description}}</span>
+					</div>
+					<div class="hboxLib expandAll flex center justify-center">
+						<div>
+							<button id="addSharing" ng-disabled="book.bookStatus != 'D'" ng-click="ctrl.addCeste(book)" 
+								class="btn btn-success {{book.disabledBookCase}}">
+								<span class="glyphicon glyphicon-plus-sign"><span> Solicitação</span></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<hr class="hrBookcase"/>
+			</li>
+		</ul>
+	</div>
+
+	<div id="carOfLearning" class="listBookcase" ng-show="ctrl.visibleListCarOfBooks">
+		<ul>
+			<li ng-repeat="book in ctrl.listBooksCarOfKnowing" class="vboxLib">
+				<div class="hboxLib">
+					<div class="center col-md-2 col-sm-1 col-xs-4 flex justify-center">
+						<img class="img-thumbnail imgBookcase" src="{{book.pathFoto}}" alt="Smiley face"/>
+					</div>
+					<div id="infoBooks" class="vboxLib col-lg-12 col-md-3 col-xs-2 flex">
+						<span class="color-default" ><span class="spanBoldBookcase color-default" >Titulo: </span>{{book.name}}</span>
+						<span class="color-default" ><span class="spanBoldBookcase color-default" >Autor: </span>{{book.author}}</span>
+						<span class="color-default" ><span class="spanBoldBookcase color-default">Editora: </span>{{book.publishingCompany}}</span>
+						<span class="color-default" ><span class="spanBoldBookcase color-default">Lançamento: </span>{{book.releaseYear}}</span>
+						<span class="color-default" ><span class="spanBoldBookcase color-default" >Genêro: </span>{{book.genrePresentation}}</span>
+						<span class="color-default" ><span class="spanBoldBookcase color-default" >Tipo: </span>{{book.sharingTypePresentation}}</span>
+						<span class="color-default" ng-show="{{book.valueSharing > 0}}"><span class="spanBoldBookcase color-default" >Valor: </span>{{book.sharingItemValue}}</span>
+					</div>
+					<div id="centerBookCaseSolicitation" class="hboxLib flex center col-lg-12 col-md-5 col-xs-4">
+						<label class="spanBoldBookcase color-default">Dt. Devolução:</label>
+						<input type="date" style="width:auto; margin-left: 5px;" placeholder="Dt. Devolução" class="form-control" ng-model="book.devolutionDate" required/>
+					</div>
+					<div class="hboxLib flex center col-md-2 col-xs-2">
+						<div>
+							<button  id="removeSharing" ng-click="ctrl.removeBookOfList(book)" 
+								class="btn btn-danger">
+								<span class="glyphicon glyphicon-minus-sign"><span> Solicitação</span></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<hr class="hrBookcase" ng-show="ctrl.visibleListCarOfBooks"/>
+			</li>
+		</ul>
+	</div>
+</div>

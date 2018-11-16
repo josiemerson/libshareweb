@@ -1,0 +1,15 @@
+<div>
+
+	<form ng-submit="ctrl.login(ctrl.email, ctrl.password)">
+    <div class="blocktext">
+      <h3 class="blockcenter">Welcome!<br>Login using email and password.</h3>
+
+  	  <input name="email" ng-model="ctrl.email" type="email" placeholder="Email" required autofocus />
+  	  <input name="password" ng-model="ctrl.password" type="password" placeholder="Senha" required />
+
+  	  <br/> <button value="ctrl.Login" type="Submit">Enter</button>
+  	  <br/> <button value="ctrl.signup"><a href="#/signup">Cadastrar-se</a></button>
+    </div>
+	</form>
+
+</div>

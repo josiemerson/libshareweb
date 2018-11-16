@@ -1,0 +1,131 @@
+#categories ul { padding: 0; margin: 0; }
+
+#categories .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+#categories .item {
+    flex-grow: 1;
+    background-position: center;
+    background-size: cover;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    position: relative;
+    list-style: none;
+    transition: all .7s ease-in-out;
+}
+
+#categories .item:hover {
+    flex-grow: 10;
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+#categories .item a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#categories .text {
+    font-size: 32;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    transition: all .5s ease-in-out;
+}
+
+#categories .item:hover .text {
+    font-size: 32px;
+    text-shadow: 2px 2px 12px black;
+}
+
+#categories .administracao {
+    background-image: url(../../img/menuSearch/administracao.jpg);
+}
+
+#categories .aventura {
+    background-image: url(../../img/menuSearch/aventura.jpg);
+}
+
+#categories .direito {
+    background-image: url(../../img/menuSearch/direito.jpg);
+}
+
+#categories .economia {
+    background-image: url(../../img/menuSearch/economia.jpg);
+}
+
+#categories .ficcaocientifica {
+    background-image: url(../../img/menuSearch/ficcaocientifica.jpeg);
+}
+
+#categories .fantasia {
+    background-image: url(../../img/menuSearch/fantasia.jpg);
+}
+
+#categories .geografiaehistoria {
+    background-image: url(../../img/menuSearch/geografiaehistoria.jpg);
+}
+
+#categories .policial {
+    background-image: url(../../img/menuSearch/policial.png);
+}
+
+#categories .religiao {
+    background-image: url(../../img/menuSearch/religiao.jpg);
+}
+
+#categories .romance {
+    background-image: url(../../img/menuSearch/romance.jpg);
+}
+
+#categories .terror {
+    background-image: url(../../img/menuSearch/terror.jpg);
+}
+
+#categories .vidaecrescimento {
+    background-image: url(../../img/menuSearch/vidaecrescimento.jpg);
+}
+
+#categories .diversos {
+    background-image: url(../../img/menuSearch/diversos.jpg);
+}
+
+@media screen and (max-width: 768px) {
+
+    #categories .container {
+        flex-direction: column;
+    }
+
+    #categories .text {
+        font-size: 16px;
+    }
+
+}
+
+.vertical {
+    -webkit-transform: rotate(-40deg);
+    -moz-transform: rotate(-40deg);
+    -ms-transform: rotate(-40deg);
+    -o-transform: rotate(-40deg); /* opcional: Opera agora usa -webkit */
+    transform: rotate(-40deg);
+  
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%; /* opcional: Opera agora usa -webkit */
+    transform-origin: 50% 50%;
+  
+    /* Use se você quer que apareça para o IE8. */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  }

@@ -1,0 +1,86 @@
+#sharing{
+
+}
+
+#sharing .titleFilter {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+#sharing label {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 12px;
+}
+
+#sharing .containerSharing{
+  margin-top: 5px;
+  background-color: rgb(248,248,248);
+  height: 635px;
+  padding: 0px 10px;
+}
+
+#sharing .fontsSharingPortal {
+  font-size: 12px;
+  height: 30px;
+}
+
+#sharing .spanAShare {
+  padding-top: 5px;
+  margin: 0px 5px;
+}
+
+#sharing .containerSharingLib {
+ margin-top: 15px;
+}
+
+/* #sharingGridLibShare table,
+#sharingGridItemLibShare table{
+  margin: 5px 3px;
+}
+
+
+#sharingGridLibShare span,
+#sharingGridItemLibShare span{
+  padding-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#sharingGridLibShare {
+ 
+}
+
+#sharingGridLibShare ,
+#sharingGridItemLibShare {
+  border-radius: 4px 4px;
+  background-color: white;
+  margin: 5px 5px;
+}
+
+#sharingGridLibShare{
+  height: calc(100% / 2);
+}
+
+#sharingGridItemLibShare {
+  height: calc(100% / 2);
+} */
+
+#gridSharing,
+#gridSharingItem{
+  margin: 5px 5px;
+  height: calc(100% / 2);
+  width: auto;
+}
+
+#gridsLibSharing span{
+  padding-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  /* margin-bottom: 10px; */
+}
+#gridSharingItem{
+
+}

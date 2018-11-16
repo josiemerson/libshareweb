@@ -1,0 +1,135 @@
+<div id="user" class="vboxLib">
+    <div class="headerUser hboxLib">
+
+      <div class="vboxLib imageUser" ng-disabled="ctrl.showImage" >
+        <!-- <img class="circle" ng-click="ctrl.alterarImage()" src="{{ctrl.imageProfile}}" alt="Smiley face"/> -->
+        <img class="circle" ng-click="ctrl.alterarImage()" src="{{ctrl.imageProfile}}" alt="Smiley face"/>
+        <a ng-click="ctrl.alterarImage()">Alterar Imagem</a>
+      </div>
+
+      <div ng-hide="ctrl.showImage" class="vboxLib headerContainerUser">
+        <!-- <div class="hboxLib"> -->
+            <!-- <div class="vboxLib expandAll"> -->
+                <div class="vboxLibUser">
+                    <label class="color-default">Nome</label>
+                    <input type="text" placeholder="Nome" class="form-control" ng-model="ctrl.profile.name"/>
+                </div>
+          
+                <div class="vboxLibUser">
+                  <label class="color-default">Sobrenome</label>
+                  <input type="text" placeholder="Sobrenome" class="form-control" ng-model="ctrl.profile.lastName"/>
+                </div>
+                
+                <div class="vboxLibUser">
+                  <label class="color-default">Email</label>
+                  <input type="email" ng-disabled="true" class="form-control" placeholder="email" ng-model="ctrl.user.email" required/>
+                </div>
+                
+                <div class="vboxLibUser">
+                  <label class="color-default">Dt. Nascimento</label>
+                  <input type="date" placeholder="Dt. Nascimento" class="form-control" ng-model="ctrl.profile.dateBirth" required/>
+                </div>
+                
+                <div class="vboxLibUser">
+                  <label class="color-default">Cep</label>
+                  <input type="text" placeholder="Cep" class="form-control"  ng-blur="ctrl.getLoadAddressPerCep()" ng-model="ctrl.profile.cep" maxlength="255" required/>
+                </div>
+                
+                <div class="hboxLib">
+                  <div class="vboxLibUser addressInputUser">
+                    <label class="color-default">Endereço</label>
+                    <input type="text" placeholder="Endereço" class="form-control" ng-model="ctrl.profile.address" maxlength="255" required/>
+                  </div>
+          
+                  <div class="vboxLibUser nroInputUser">
+                    <label class="color-default">Nº</label>
+                    <input type="number" placeholder="Número" class="form-control" ng-model="ctrl.profile.number" maxlength="255" required/>
+                  </div>
+                </div>
+      
+                <div class="vboxLibUser">
+                    <label class="color-default">Complemento</label>
+                    <input type="text" placeholder="Complemento" class="form-control" ng-model="ctrl.profile.complement" maxlength="255" required/>
+                </div>
+      
+                <div class="hboxLib">
+                  <div class="vboxLibUser addressInputUser">
+                    <label class="color-default">Bairro</label>
+                    <input type="text" placeholder="Bairro" class="form-control" ng-model="ctrl.profile.neighborhood" maxlength="255" required/>
+                  </div>
+                  <div class="vboxLibUser nroInputUser">
+                      <label class="color-default">Região</label>
+                      <select name="singleSelect" class="form-control color-default" id="singleSelectRegion" ng-model="ctrl.profile.region">
+                        <option value="">---Please select---</option>
+                        <option ng-Repeat="data in ctrl.regionCity" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+                      </select>
+                    </div>
+                </div>
+            <!-- </div> -->
+
+            <!-- <div class="vboxLibUser expandAll"> -->
+                <div class="hboxLib">
+                    <div class="vboxLibUser expandAll">
+                      <label class="color-default">Cidade</label>
+                      <input type="text" ng-disabled="true" placeholder="Cidade" class="form-control" ng-model="ctrl.profile.city" maxlength="255" required/>
+                    </div>
+            
+                    <div class="vboxLibUser expandAll">
+                      <label class="color-default">Estado</label>
+                      <input type="text" ng-disabled="true" placeholder="Estado" class="form-control" ng-model="ctrl.profile.state" maxlength="255" required/>
+                    </div>
+            
+                    <div class="vboxLibUser expandAll">
+                      <label class="color-default">Pais</label>
+                      <input type="text" ng-disabled="true" placeholder="Pais" class="form-control" ng-model="ctrl.profile.country" maxlength="255" required/>
+                    </div>
+                </div>
+        
+                <div class="vboxLibUser">
+                  <label class="color-default">Fone</label>
+                  <input type="tel" placeholder="Telefone" class="form-control" ng-model="ctrl.profile.telephone" maxlength="255" required/>
+                </div>
+        
+                <div class="vboxLibUser">
+                  <label class="color-default">Password</label>
+                  <input type="password" placeholder="Password" class="form-control" ng-model="ctrl.user.password" minlength="4" maxlength="30" required/>
+                </div>
+                <div class="checkbox">
+                    <label class="color-default"><input type="checkbox"  ng-model="ctrl.profile.allowShowPhone" value="">Mostrar telefone</label>
+                </div>
+                <div class="checkbox">
+                    <label class="color-default"><input type="checkbox"  ng-model="ctrl.user.excluiruser" value="">Excluir conta</label>
+                  </div>
+              <!-- </div> -->
+        <!-- </div> -->
+  
+          <div class="hboxLib hboxButtonUser">
+            <button type="submit" class="buttonUser btn btn-success " ng-click="ctrl.saveUser(ctrl.user)">Save</button>
+            <button type="button" class="buttonUser btn btn-danger " ng-disabled="ctrl.disabledCancel" ng-click="ctrl.hide()">Cancel</button>
+          </div>
+      </div>
+      <!-- <img-upload ng-hide="!ctrl.showImage" style="width: 800px; height: 500px; background-color: #fff;" method="POST" url="{{ctrl.uploadImageUrl}}"></img-upload> -->
+      <!-- <div img-upload method="POST" url="" ng-hide="!ctrl.showImage"></div> -->
+      <!-- <div ngf-select ngf-drop ng-model="files" ngf-model-invalid="invalidFiles"
+            ngf-model-options="modelOptionsObj"
+            ngf-multiple="false" 
+            ngf-pattern="pattern" 
+            ngf-accept="acceptSelect"
+            ng-disabled="disabled" 
+            ngf-capture="capture"
+            ngf-drag-over-class="dragOverClassObj"
+            ngf-validate="validateObj"
+            ngf-resize="resizeObj"
+            ngf-resize-if="resizeIfFn($file, $width, $height)"
+            ngf-dimensions="dimensionsFn($file, $width, $height)"
+            ngf-duration="durationFn($file, $duration)"
+            ngf-keep="false"
+            ngf-fix-orientation="orientation"
+            ngf-max-files="maxFiles"
+            ngf-ignore-invalid="ignoreInvalid"
+            ngf-run-all-validations="runAllValidations"
+            ngf-allow-dir="allowDir" class="drop-box" ngf-drop-available="dropAvailable">Select File
+        <span ng-show="dropAvailable"> or Drop File</span>
+      </div> -->
+    </div>
+  </div>  

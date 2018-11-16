@@ -1,0 +1,49 @@
+<!-- <div>
+	<form>
+		<div class="blocktext">
+			<h3 class="blockcenter">Bem vindo!<br>Entre com email e senha.</h3>
+			<input name="email" ng-model="ctrl.email" type="email" placeholder="Email" required autofocus />
+			<input style="margin-top: 10px" name="password" ng-model="ctrl.password" type="password" placeholder="Senha" required />
+		</div>
+		<div class="hbox" style="margin-top: 10px">
+			<button ng-click="ctrl.login(ctrl.email, ctrl.password)">Entrar</button>
+			<button ng-click="ctrl.cadastrar()">Cadastrar-se</button>
+		</div>
+	</form>
+</div> -->
+<div class="container" id="form-container">
+	<div class="panel" id="form-box">
+		<form >
+			<h1 class="text-center color-default">Login</h1>
+
+			<div class="form-group">
+				<label class="sr-only" for="login">Email</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-user"></span>
+					</div>
+					<input type="text" name="email" ng-model="ctrl.email" class="form-control" placeholder="Seu email de usuário">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="sr-only" for="senha">Senha</label>
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-lock"></span>
+					</div>
+					<input type="password" name="senha" ng-model="ctrl.password" class="form-control" placeholder="Digite sua senha">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input value="Entrar"   ng-click="ctrl.login(ctrl.email, ctrl.password)" 
+				class="btn btn-success form-control">
+			</div>
+
+			<div class="form-group color-default">
+				Não é registrado? <a href="#/signup">Crie uma conta</a>.
+			</div>
+		</form>
+	</div>
+</div>

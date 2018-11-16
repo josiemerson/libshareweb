@@ -1,0 +1,7 @@
+.error {
+    border-color: red
+}
+.correct {
+    border:none;
+    border: solid 1px rgba(160, 160, 160, 0.3); 
+}

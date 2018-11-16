@@ -1,0 +1,142 @@
+#bookcasemy {
+  border-radius: 10px;
+  margin: 10px 10px;
+  height: auto;
+}
+
+#bookcasemy .vboxLibBookcasemy{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 10px 0px 10px;
+}
+
+#bookcasemy .spanBoldbookcasemy {
+  font-weight: bold;
+}
+
+#bookcasemy .btnsHeader{
+  margin: 10px 10px 0px 0px;
+}
+
+#bookcasemy .btnsHeader button{
+  width: auto;
+  margin-left: 10px;
+}
+
+#bookcasemy .newOrEditBook{
+  float: left;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+/* #bookcasemy .headerbookcasemy img{
+  margin: 20px 20px;
+  height : "40px"; 
+  width : "40px";
+} */
+
+#bookcasemy .buttonSaveNewAndEdit{
+  width: 150px;
+  margin: 10px 5px;
+}
+
+#bookcasemy #newOrEditBook img {
+  margin: 20px 0px;
+  /* height : 40px; 
+  width : 40px; */
+  border-radius: 5px;
+}
+
+/* #bookcasemy #newOrEditBook input,
+#bookcasemy #newOrEditBook label,
+#bookcasemy #newOrEditBook a,
+#bookcasemy #newOrEditBook select {
+  color: black;
+} */
+
+
+#bookcasemy .estantebookcasemy {
+  margin: 0px 10px;
+  padding-top: 10px;
+}
+
+#bookcasemy .estantebookcasemy h3 {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0px;
+  padding-top: 10px;
+  /* border-top: solid 1px; */
+  /* border-bottom: solid 1px; */
+  width: fit-content;
+}
+
+#bookcasemy .listbookcasemy{
+  color: black;
+  position: relative;
+  overflow:scroll;
+  overflow:auto;
+  height: auto;
+  width: auto;
+}
+
+#bookcasemy .listbookcasemy .imgbookcasemy{
+  margin: 0px 10px;
+  height: 130px;
+}
+/* #bookcasemy .listbookcasemy .imgbookcasemy{
+  border-radius: 0px;
+  margin: 0px 10px;
+  height: 130px;
+} */
+
+#bookcasemy  .listbookcasemy ul {
+  /* border-radius: 10px; */
+  border-top: 1px solid;
+  margin: 10px;
+  list-style-type: none;
+}
+
+#bookcasemy  .listbookcasemy ul li {
+  padding-right: 20px;
+  padding-top : 10px;
+}
+
+.hrbookcasemy {
+  border-color:#333;
+  box-sizing:border-box;
+  width: calc(100% - 10px);  
+  margin: 10px 10px 0px 0px;
+  padding-right: 10px;
+}
+
+.marginRight {
+  margin-right: 10px;
+}
+
+
+.disabledbookcasemy {
+  color: #0b4601
+}
+
+.onStatusbookcasemy {
+  border-radius: 5px;
+  color: green;
+}
+
+.ofStatusbookcasemy {
+  border-radius: 5px;
+  color: red;
+}
+
+/* width: 18px;
+height: 18px;
+border-radius: 50%;
+background-color: red;
+color: black;
+text-align: center;
+font-weight: bold;
+position: relative;
+border: 0px;
+padding-left: 4px; */

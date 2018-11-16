@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="simpleTabApp">
+<head>
+    <script src="../../../js/angular.js"></script>
+    <!--script src="..js/angular-route.min.js"></script>
+    <script src="..js/angular-cookies.min.js"></script>
+    <script src="..js/ngStorage.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/ie/html5shiv.js"></script>
+    <script src="js/ie/respond.min.js"></script-->
+    <title>Simple tab</title>
+    <script type="text/javascript">
+        angular.module('simpleTabApp',[])
+        .controller('simpleTabController', ['$scope', function ($scope){
+            var self = this;
+
+            $scope.tabs = [
+                {title: 'First tab',
+                 url: 'first.html'
+                },
+                {title: 'Second tab',
+                 url: 'second.html'
+                },
+                {title: 'Third tab',
+                 url: 'third.html'
+                }
+            ];
+
+            $scope.currentTab = 'first.html';
+
+            $scope.onClickTab = function(tab) {
+                $scope.currentTab = tab.url;
+            }
+
+            $scope.isActiveTab = function(tabUrl) {
+                return tabUrl == $scope.currentTab;
+            }
+        }]);
+    </script>
+    <style>
+        .tabs-nav {
+            padding: 20px 0 0;
+            list-style: none;
+        }
+        .tabs-nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+        .tabs-nav a {
+            display:inline-block;
+            cursor: pointer;
+        }
+        .tabs-nav .active {
+            color: red;
+        }
+        .tab-content {
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+    </style>
+</head>
+    <div class="tabs-holder">
+        <div id="tabs" ng-controller="simpleTabController">
+            <ul class="tabs-nav">
+                <li ng-repeat="tab in tabs" 
+                ng-class="{active:isActiveTab(tab.url)}" 
+                ng-click="onClickTab(tab)">{{tab.title}}</li>
+            </ul>
+            <div id="tab-content">
+                <div ng-include="currentTab"></div>
+            </div>
+            <script type="text/ng-template" id="first.html">
+                <div class="tab-content" id="1">
+                    <h1>First Tab</h1>
+                    <p>Simple tab 1</p>
+                </div>
+            </script>
+            <script type="text/ng-template" id="second.html">
+                <div class="tab-content" id="2">
+                    <h1>Second Tab</h1>
+                    <p>Simple tab 2</p>
+                </div>
+            </script>
+            <script type="text/ng-template" id="third.html">
+                <div class="tab-content" id="3">
+                    <h1>Third Tab</h1>
+                    <p>Simple tab 3</p>
+                </div>
+            </script>
+        </div>
+    </div>
+</body>
+</html>

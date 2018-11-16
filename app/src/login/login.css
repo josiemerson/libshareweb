@@ -1,0 +1,22 @@
+/* .blocktext {
+  margin-left: auto;
+  margin-right: auto;
+  width: 24em;
+  position: relative;
+} */
+ #form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
+#form-box {
+  width: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#form-box input {
+  font-size: large;
+}

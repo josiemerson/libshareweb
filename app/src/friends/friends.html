@@ -1,0 +1,78 @@
+<div class="container color-default" id="friends">
+	<div class="row">
+    	<div class="col-md-12">
+            <div class="col-xs-12 col-md-12 background-blank space-default area">
+					<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" ng-class="{active:ctrl.isSelected(1)}">
+								<a class="color-default" ng-click="ctrl.select(1)" aria-controls="all items" role="tab">Amigos <span class="glyphicon glyphicon-user"></span></a>
+							</li>
+							<li role="presentation" ng-class="{active:ctrl.isSelected(2)}">
+								<a class="color-default {{ctrl.classeNewFriend}}" ng-click="ctrl.select(2)" aria-controls="" role="tab">Novas solicitações <span class="glyphicon glyphicon-check"></span></a>
+								<!-- <div class="hboxLib">
+									<span style="position: absolute;" ng-show="ctrl.newFriends.length > 0"  class="qtdAddBooks">{{ctrl.newFriends.length}}</span>
+								</div> -->
+							</li>
+					</ul>
+					<div class="tab-content vboxLib">
+						<div class="friendsFind col-xs-12 col-sm-12  col-md-8 col-lg-5" >
+							<small class="color-default">Buscar</small><input class="form-control" type="text" ng-model="ctrl.findFriends" placeholder="ex: Josiemerson">
+						</div>
+						<hr class="hrFriends">
+						<div ng-show="ctrl.isSelected(1)">
+							<ul class="media-list tab-pane fade in active">
+								<li  class="media"  ng-repeat="profile in ctrl.friends | filter: ctrl.findFriends">
+									<div class="hboxLib">
+										<div class="flex">
+											<img class="imgbookcasemy" src="{{profile.pathFoto}}" alt="Smiley face"/>
+										</div>
+										<div class="vboxLib expandAll flex infoFriends justify-center">
+											<span class="color-default"><span class="color-default" >Nome: </span>{{profile.name}}</span>
+											<span class="color-default"><span class="color-default" >Sobrenome: </span>{{profile.lastName}}</span>
+										</div>
+										<div class="hboxLib expandAll flex center justify-center">
+											<div>
+												<button ng-click="ctrl.removeUser(profile)"  class="btn btn-danger">
+													<span class="glyphicon glyphicon-remove"> Excluir</span>
+												</button>
+											</div>
+										</div>
+									</div>
+									<hr class="hrFriends" ng-show="$index > -1"/> 
+								</li>
+							</ul>
+							
+						</div>	
+
+						<div ng-show="ctrl.isSelected(2)">
+							<ul class="media-list tab-pane fade in active">
+								<li  class="media"  ng-repeat="profile in ctrl.newFriends| filter: ctrl.findFriends">
+									<div class="hboxLib">
+										<div class="flex">
+											<img class="imgbookcasemy" src="{{profile.pathFoto}}" alt="Smiley face"/>
+										</div>
+										<div class="vboxLib expandAll flex infoFriends justify-center">
+											<span class="color-default"><span class="color-default" >Nome: </span>{{profile.name}}</span>
+											<span class="color-default"><span class="color-default" >Sobrenome: </span>{{profile.lastName}}</span>
+										</div>
+										<div class="hboxLib expandAll flex center justify-center">
+											<div class="marginRight">
+												<button  ng-click="ctrl.acceptUser(profile)" class="btn btn-success">
+													<span class="glyphicon glyphicon-ok"> Aceitar</span>
+												</button>
+											</div>
+											<div>
+												<button ng-click="ctrl.negateUser(profile)"  class="btn btn-danger">
+													<span class="glyphicon glyphicon-remove"> Recusar</span>
+												</button>
+											</div>
+										</div>
+									</div>
+									<hr class="hrFriends" ng-show="$index > -1"/>
+								</li>
+							</ul>
+						</div>	
+				</div>
+			</div>	
+		</div>
+	</div>
+  </div>

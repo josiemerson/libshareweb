@@ -1,0 +1,126 @@
+<div id="bookcasemy" class="vboxLib">
+	<div class="hboxLib">
+		<div class="flex expandAll">
+			<span class="estantebookcasemy color-default"><h3>Meus Livros</h3></span>
+		</div>
+		<div  class="flex hboxLib align-end btnsHeader expandAll" id="" >
+			<button ng-click="ctrl.backToList()" ng-show="ctrl.newOrEditBook"
+				class="btn btn-secondary">
+				<span class="glyphicon glyphicon-arrow-left"></span>
+			</button>
+
+			<div class="hboxLib"  ng-show="!ctrl.newOrEditBook" >
+				<input class="form-control" ng-model="ctrl.queryBook" type="text" placeholder="Filtrar livros" autofocus/>
+			</div>
+
+			<button ng-click="ctrl.addBook()" ng-show="!ctrl.newOrEditBook" 
+				class="btn btn-success">
+				<span class="glyphicon glyphicon-plus-sign"> Livro</span>
+			</button>
+		</div>
+	</div>
+	<div class="listbookcasemy" ng-show="!ctrl.newOrEditBook">		
+		<ul>
+			<li ng-repeat="book in ctrl.books |  filter:ctrl.queryBook | orderBy: 'name'">
+				<div class="hboxLib">
+					<div class="flex">
+						<img class="img-thumbnail imgbookcasemy" src="{{book.pathFoto}}" alt="Smiley face"/>
+					</div>
+					<div class="vboxLib expandAll flex">
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Titulo: </span>{{book.name}}</span>
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Autor: </span>{{book.author}}</span>
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Editora: </span>{{book.publishingCompany}}</span>
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Lançamento: </span>{{book.releaseYear}}</span>
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Genêro: </span>{{book.genrePresentation}}</span>
+						<span class="color-default"><span class="spanBoldbookcasemy color-default" >Tipo: </span>{{book.sharingTypePresentation}}</span>
+						<span class="{{book.statusbookcasemy}} color-default"><span class="spanBoldbookcasemy color-default" >Status: </span>{{book.bookStatusPresentation}}</span>
+					</div>
+					<div class="vboxLib expandAll">
+						<span class="spanBoldbookcasemy color-default" >Descrição: </span>	
+						<span class="color-default">{{book.description}}</span>
+					</div>
+					<div class="hboxLib expandAll flex center justify-center">
+						<div class="marginRight">
+							<button ng-disabled="book.bookStatus != 'D'" ng-click="ctrl.removeBook(book)" 
+								class="btn btn-danger {{book.disabledbookcasemy}}">
+								<span class="glyphicon glyphicon-minus-sign"><span> Excluir</span></span>
+							</button>
+						</div>
+						<div>
+							<button ng-disabled="book.bookStatus != 'D'" ng-click="ctrl.editBook(book)" 
+								class="btn btn-primary {{book.disabledbookcasemy}}">
+								<span class="glyphicon glyphicon-pencil"><span> Editar</span></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<hr class="hrbookcasemy" ng-show="$index > -1"/>
+			</li>
+		</ul>
+	</div>
+	<div id="newOrEditBook" ng-show="ctrl.newOrEditBook">
+			<div class="vboxLibBookcasemy">
+				<img ng-click="ctrl.alterarImage()" src="{{ctrl.bookAddEdit.pathFoto}}" alt="Smiley face"/>
+				<!-- <a ng-click="ctrl.alterarImage(ctrl.file)">Alterar Imagem</a> -->
+			</div>
+			
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Titulo</label>
+				<input type="text" class="form-control color-default" placeholder="Titulo" ng-model="ctrl.bookAddEdit.name"/>
+			</div>
+		
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Autor</label>
+				<input type="text" class="form-control color-default" placeholder="Autor" ng-model="ctrl.bookAddEdit.author"/>
+			</div>
+			
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Editora</label>
+				<input type="text" class="form-control color-default" placeholder="Editora" ng-model="ctrl.bookAddEdit.publishingCompany" required/>
+			</div>
+			
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Lançamento</label>
+				<input type="date" class="form-control color-default" placeholder="Lançamento" ng-model="ctrl.bookAddEdit.releaseYear" required/>
+			</div>
+			
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Genêro</label>
+				<select name="singleSelect" class="form-control color-default" id="singleSelect" ng-model="ctrl.bookAddEdit.genre">
+						<option value="" class="color-default">---Please select---</option> <!-- not selected / blank option -->
+						<option ng-Repeat="data in ctrl.bookGenreOptions" class="color-default" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+				</select>
+			</div>
+			
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Status</label>
+				<select class="form-control color-default" ng-model="ctrl.bookAddEdit.bookStatus">
+					<option value="">---Please select---</option> <!-- not selected / blank option -->
+					<option ng-Repeat="data in ctrl.bookStatusOptions" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+				</select>
+			</div>
+
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Tipo</label>
+				<select class="form-control color-default" ng-model="ctrl.bookAddEdit.sharingType">
+					<option value="">---Please select---</option> <!-- not selected / blank option -->
+					<option ng-Repeat="data in ctrl.sharingTypeOptions" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+				</select>
+			</div>
+
+			<div class="vboxLibBookcasemy">
+				<label class="color-default">Descrição</label>
+				<input type="text" class="form-control color-default" placeholder="Descrição" ng-model="ctrl.bookAddEdit.description" maxlength="255" required/>
+			</div>
+			<div class="flex justify-center hboxLib">
+				<button ng-click="ctrl.saveBook(ctrl.bookAddEdit)" 
+					class="btn btn-primary buttonSaveNewAndEdit">
+					<span class="glyphicon glyphicon-floppy-saved"> Salvar</span>
+				</button>
+				<button ng-click="ctrl.cancelBook(ctrl.bookAddEdit)" 
+					class="btn btn-danger buttonSaveNewAndEdit">
+					<span class="glyphicon glyphicon-floppy-remove"> Cancelar</span>
+				</button>
+			</div>
+	</div>
+</div>
