@@ -1,6 +1,7 @@
 'use strict';
 
-var BASE_URL = 'http://localhost:8080/api';
+// var BASE_URL = 'http://localhost:8080/api';
+var BASE_URL = 'http://localhost:50624/api';
 
 agGrid.initialiseAgGridWithAngular1(angular);
 
