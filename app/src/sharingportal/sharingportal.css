@@ -35,6 +35,13 @@
  margin-top: 15px;
 }
 
+#btnFind {
+  margin-top: 5px;
+}
+#btnFind > span >span{
+  font-family: "Helvetica Neue", sans-serif;
+}
+
 /* #sharingGridLibShare table,
 #sharingGridItemLibShare table{
   margin: 5px 3px;

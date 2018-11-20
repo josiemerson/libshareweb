@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('libshareApp')
-  .controller('BookCaseMyCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusBookSrv',
+  .controller('BookCaseMyCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusSrv',
     'ngNotify', '$window', '$rootScope', 'DateUtils', 'MsgUtils', 'LibPhotoSrv', 'ConverterBookSrv','LoginLogoutSrv',
-  function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusBookSrv, ngNotify,$window, $rootScope, 
+  function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusSrv, ngNotify,$window, $rootScope, 
     DateUtils, MsgUtils, LibPhotoSrv, ConverterBookSrv, LoginLogoutSrv) {
     var self = this;
     
@@ -87,7 +87,7 @@ angular.module('libshareApp')
 
         self.books.forEach(function(item, index, arr){
           if (item.id === book.id){
-            item.bookStatus = ConverterStatusBookSrv.converterSiglaToDescStatus('D');
+            item.bookStatus = ConverterStatusBookSrv.converterSiglaToDescStatusBook('D');
             item.bookStatusOrig = 'D';
             item.statusBookcase = 'onStatusBookcase';
           }
@@ -145,7 +145,7 @@ angular.module('libshareApp')
           item.statusBookcase = 'ofStatusBookcase';
         }
 
-        item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatus(item.bookStatus);
+        item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook(item.bookStatus);
         item.sharingTypePresentation = ConverterBookSrv.converterSiglaToDescTypeShare(item.sharingType);
 
         item.pathFoto = ImageSrv.buildUrlImage(self.codUsu, item.pathFoto, item.id);

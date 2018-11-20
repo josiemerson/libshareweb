@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('libshareApp')
-  .controller('BookCaseCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusBookSrv',
+  .controller('BookCaseCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusSrv',
     'ngNotify', '$window', '$rootScope', 'DateUtils','MsgUtils', 'ConverterBookSrv', 'LoginLogoutSrv',
-  function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusBookSrv, ngNotify,$window, $rootScope, 
+  function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusSrv, ngNotify,$window, $rootScope, 
     DateUtils, MsgUtils, ConverterBookSrv, LoginLogoutSrv) {
     var self = this;
     
@@ -86,7 +86,7 @@ angular.module('libshareApp')
 
       book.bookStatus = 'I';
       book.statusBookcase = 'ofStatusBookcase';
-      book.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatus('I');
+      book.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook('I');
 
       self.listBooksCarOfKnowing.push(book);
       self.qtdAddBooks = self.qtdAddBooks + 1;
@@ -119,7 +119,7 @@ angular.module('libshareApp')
                 item.statusBookcase = 'ofStatusBookcase';
               }
 
-              item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatus(item.bookStatus);
+              item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook(item.bookStatus);
               item.sharingTypePresentation = ConverterBookSrv.converterSiglaToDescTypeShare(item.sharingType);
               item.pathFoto = ImageSrv.buildUrlImage(idUser, item.pathFoto, item.id);
               item.releaseYear = convertLancamento(item.releaseYear);
@@ -169,7 +169,7 @@ angular.module('libshareApp')
 
         self.books.forEach(function(item, index, arr){
           if (item.id === book.id){
-            item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatus('D');;
+            item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook('D');;
             item.bookStatus = 'D';
             item.statusBookcase = 'onStatusBookcase';
             item.disabledBookCase = '';
@@ -264,8 +264,12 @@ angular.module('libshareApp')
     }
 
     function findStatusFriends(){
-      RestSrv.find('',function(response){
+      var user = self.userDetails.id;
+      var friend = self.profile.id;
 
+      var urlFriends = URLS_SERVICES.FRIENDS + "/" + user + "/" + friend; 
+      RestSrv.find(urlFriends, function(response){
+        
       });
     }
 
