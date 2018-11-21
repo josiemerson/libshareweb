@@ -50,13 +50,12 @@ angular.module('libshareApp')
             RestSrv.add(URLS_SERVICES.USER_NEW, data, function(response){
                 // $rootScope.dataUser = response;
 
-                LoginLogoutSrv.login(data.email, data.password);
+                LoginLogoutSrv.login(data.email, data.password, function(userDetails){
 
-                // $rootScope.authDetails = { name: '', authenticated: true, permissions: [{authority: 'ROLE_USER'}] , 'user' :  $rootScope.dataUser};
-                // $localStorage.authDetails = $rootScope.authDetails;
-
-                $rootScope.newUser = true;
-                $location.path("/user");
+                  $rootScope.newUser = true;
+                  $location.path("/user").replace();
+                  $scope.$apply();  
+                });
               });
           }
         }

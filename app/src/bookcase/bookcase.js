@@ -21,9 +21,31 @@ angular.module('libshareApp')
 
     self.visibleListCarOfBooks = false;
     self.titleDinamic = 'Livros';
-    self.typeBtnFriend = 'btn-success';//quando não for amigo
-    self.descriptionFriend = 'Solicitar amizade';
-    self.statusFriend = '';
+    // self.typeBtnFriend = 'btn-success';//quando não for amigo
+    // self.descriptionFriend = 'Solicitar amizade';
+
+    //Quando não for amigo 
+    // self.typeBtnFriend = 'btn-success';//quando não for amigo
+    // self.descriptionFriend = 'Solicitar amizade';
+    // self.iconFriends = 'plus';
+    // self.visibleFriends = false;
+    // self.statusFriend = ''; //Status - A - Aprovado, N - Negado, P - Pendente
+    
+    //Quando for amigo 
+    self.typeBtnFriend = 'btn-danger';//quando não for amigo
+    self.descriptionFriend = 'Desfazer amizade';
+    self.iconFriends = 'minus';
+    self.visibleFriends = true;
+    self.statusFriend = 'A'; //Status - A - Aprovado, N - Negado, P - Pendente
+
+    //Quando for pendente
+    // self.typeBtnFriend = 'btn-danger';//quando não for amigo
+    // self.descriptionFriend = 'Aguardando resposta';
+    // self.iconFriends = 'minus';
+    // self.visibleFriends = false;
+    // self.statusFriend = 'P'; //Status - A - Aprovado, N - Negado, P - Pendente
+    
+    
     // self.datatoggle = 'dropdown';
     // self.typeBtnFriend = 'btn-danger';//quando já for amigo
     // self.statusFriends = 'Desfazer amizade';
@@ -86,7 +108,7 @@ angular.module('libshareApp')
 
       book.bookStatus = 'I';
       book.statusBookcase = 'ofStatusBookcase';
-      book.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook('I');
+      book.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook('I');
 
       self.listBooksCarOfKnowing.push(book);
       self.qtdAddBooks = self.qtdAddBooks + 1;
@@ -119,7 +141,7 @@ angular.module('libshareApp')
                 item.statusBookcase = 'ofStatusBookcase';
               }
 
-              item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook(item.bookStatus);
+              item.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook(item.bookStatus);
               item.sharingTypePresentation = ConverterBookSrv.converterSiglaToDescTypeShare(item.sharingType);
               item.pathFoto = ImageSrv.buildUrlImage(idUser, item.pathFoto, item.id);
               item.releaseYear = convertLancamento(item.releaseYear);
@@ -169,7 +191,7 @@ angular.module('libshareApp')
 
         self.books.forEach(function(item, index, arr){
           if (item.id === book.id){
-            item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook('D');;
+            item.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook('D');;
             item.bookStatus = 'D';
             item.statusBookcase = 'onStatusBookcase';
             item.disabledBookCase = '';
@@ -269,7 +291,8 @@ angular.module('libshareApp')
 
       var urlFriends = URLS_SERVICES.FRIENDS + "/" + user + "/" + friend; 
       RestSrv.find(urlFriends, function(response){
-        
+
+        self.visibleFriends = true;
       });
     }
 
@@ -280,11 +303,13 @@ angular.module('libshareApp')
         self.descriptionFriend = 'Aguardando resposta';
         self.classStatusFriend = 'caret';
         self.statusFriend = 'P';
+        self.visibleFriends = true;
       } else if (statusFriends === 'P' || statusFriends === 'A'){
         //quando já fizer solicitação e quiser cancelar
         self.typeBtnFriend = 'btn-success';
         self.descriptionFriend = 'Solicitar amizade';
         self.statusFriend = '';
+        self.visibleFriends = false;
       }
     }
 

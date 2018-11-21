@@ -24,6 +24,9 @@ angular.module('libshareApp')
     self.saveBook = saveBook;
     self.cancelBook = cancelBook;
     self.alterarImage = alterarImage;
+    self.changeGenero = changeGenero;
+    self.changeStatusBook = changeStatusBook;
+    self.changeSharingType = changeSharingType;
 
     self.bookAddEdit = {};
     self.newOrEditBook = false;
@@ -87,7 +90,7 @@ angular.module('libshareApp')
 
         self.books.forEach(function(item, index, arr){
           if (item.id === book.id){
-            item.bookStatus = ConverterStatusBookSrv.converterSiglaToDescStatusBook('D');
+            item.bookStatus = ConverterStatusSrv.converterSiglaToDescStatusBook('D');
             item.bookStatusOrig = 'D';
             item.statusBookcase = 'onStatusBookcase';
           }
@@ -104,7 +107,13 @@ angular.module('libshareApp')
 
         var complementUrl = user.id + "/" + ALL_CATEGORIES;
         RestSrv.find(URLS_SERVICES.BOOKS_MY_BOOKS + complementUrl, function(response){
-          self.books = bookTreatment(response);
+          if (StringUtils.isEmpty(response)){
+            MsgUtils.showAlert("Usuário não possui livros cadastrados.");
+            self.books = [];
+          } else {
+
+            self.books = bookTreatment(response);
+          }
         });
       } else {
         MsgUtils.showError('Houve um erro ao carregar os dados do usuário, entre em contato com a LibShare.');
@@ -145,7 +154,7 @@ angular.module('libshareApp')
           item.statusBookcase = 'ofStatusBookcase';
         }
 
-        item.bookStatusPresentation = ConverterStatusBookSrv.converterSiglaToDescStatusBook(item.bookStatus);
+        item.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook(item.bookStatus);
         item.sharingTypePresentation = ConverterBookSrv.converterSiglaToDescTypeShare(item.sharingType);
 
         item.pathFoto = ImageSrv.buildUrlImage(self.codUsu, item.pathFoto, item.id);
@@ -209,5 +218,15 @@ angular.module('libshareApp')
       }, function(){
 //cancel
       });
+    }
+
+    function changeGenero() {
+      self.bookAddEdit.genrePresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.genre);
+    }
+    function changeStatusBook() {
+      self.bookAddEdit.bookStatusPresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.bookStatus);
+    }
+    function changeSharingType() {
+      self.bookAddEdit.sharingTypePresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.sharingType);
     }
   }]);

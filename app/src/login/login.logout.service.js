@@ -6,7 +6,7 @@ angular.module('libshareApp')
     var urlLogin  = SERVICE_PATH.PUBLIC_PATH + '/login';
     var urlLogout = SERVICE_PATH.PUBLIC_PATH + '/logout';
 
-    serviceFactory.login = function(email, password) {
+    serviceFactory.login = function(email, password, callback) {
 
       if($rootScope.useMemory){
 
@@ -35,9 +35,14 @@ angular.module('libshareApp')
             if (data.principal) {
               $rootScope.authDetails = { name: data.name, authenticated: data.authenticated, permissions: data.authorities , user : data.principal};
               $localStorage.authDetails = $rootScope.authDetails;
-              $location.path('/');
+              if (callback) {
+                callback($rootScope.authDetails);
+              } else {
 
-              MsgUtils.showSuccess('Bem vindo ' + data.name);
+                $location.path('/');
+  
+                MsgUtils.showSuccess('Bem vindo ' + data.name);
+              }
             } else {
               $rootScope.authDetails = { name: '', authenticated: false, permissions: [] };
               ngNotify.set('Email ou senha incorreto.', { type: 'error', duration: 5000 });

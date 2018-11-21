@@ -14,7 +14,7 @@
 			<div  ng-show="ctrl.statusFriend != 'P'">
 				<button ng-click="ctrl.addOrRemoveFriend(ctrl.statusFriend)" 
 					class="addFriends btn {{ctrl.typeBtnFriend}}">
-					<span class="glyphicon glyphicon-plus-sign"><span> {{ctrl.descriptionFriend}}</span></span>
+					<span class="glyphicon glyphicon-{{ctrl.iconFriends}}-sign"><span> {{ctrl.descriptionFriend}}</span></span>
 				</button>
 			</div>
 			<div class="btn-group"  ng-show="ctrl.statusFriend == 'P'">
@@ -57,7 +57,11 @@
 				</div>
 		</div>
 	</div>
-	<div class="listBookcase" ng-show="!ctrl.visibleListCarOfBooks">		
+	<div ng-show="!ctrl.visibleFriends">
+		<hr class="hrBookcase"/>
+		<h5>É necessário realizar solicitação de amizade através do botão "+ Solicitar amizade".</h5>
+	</div>
+	<div class="listBookcase" ng-show="!ctrl.visibleListCarOfBooks && ctrl.visibleFriends">		
 		<ul>
 			<li ng-repeat="book in ctrl.books | filter: ctrl.queryBook |orderBy: 'name'">
 				<div class="hboxLib">

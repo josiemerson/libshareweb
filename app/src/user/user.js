@@ -39,7 +39,7 @@ angular.module('libshareApp')
 
       if ($rootScope.newUser) {
         $rootScope.newUser = false;
-        self.profile = addInfoCountry({codUsu: usderDetails.id});
+        self.profile = addInfoCountry({codUsu: userDetails.id});
         self.profile.allowShowPhone = false;
         self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
       } else if (!StringUtils.isEmpty(userDetails)) {
@@ -47,7 +47,8 @@ angular.module('libshareApp')
         RestSrv.find(URLS_SERVICES.PROFILE_BY_CODUSU + userDetails.id, function(data){
           if (data && data.hasOwnProperty('msg')) {
 
-            self.profile = addInfoCountry({codUsu: usderDetails.id});
+            self.profile = addInfoCountry({codUsu: userDetails.id});
+            self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
           } else {
 
             self.profile = addInfoCountry(data);
@@ -103,10 +104,11 @@ angular.module('libshareApp')
     function saveByUser(){
       addPropIfNotExists(self.profile, 'codUsu', userDetails.id);
       addPropIfNotExists(self.profile, 'active', 'S');
-      // addPropIfNotExists(self.profile, 'latLong',  buildLatLong(self.profile.codUsu));
+      addPropIfNotExists(self.profile, 'latLong',  buildLatLong(self.profile.codUsu));
       addInfoCountry(self.profile);
 
       self.profile.pathFoto = treatmentImgSave(self.imageProfile);
+      self.profile.allowShowPhone =  treatmentBooleanInString(self.profile.allowShowPhone);
       self.user.profile = self.profile;
 
       RestSrv.edit(URLS_SERVICES.USER, self.user, function() {
@@ -167,6 +169,15 @@ angular.module('libshareApp')
       }, function(){
 //cancel
       });
+    }
+
+    function treatmentBooleanInString(value){
+      var retorno = "N";
+      if (value) {
+        retorno = value ? "S": "N"; 
+      }
+
+      return retorno;
     }
 
     

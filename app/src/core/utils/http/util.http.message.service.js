@@ -17,7 +17,7 @@ angular.module('libshareApp')
         callback && callback(response.data);
       } else if(statusMsgErroFonte(response)) {
         
-        ngNotify.set('Erro de sistema, será necessário analisar o log da aplicação. Error::' + response.data.message, { type: 'error', duration: 10000 });
+        ngNotify.set('Erro de sistema, entre em contato com o suporte da LibShare, repassando o seguinte erro. Error::' + response.data.message, { type: 'error', duration: 10000 });
       } else if(!response.data){
         ngNotify.set('Houve algum problema na requisição ao servidor, tente novamente mais tarde.', { type: 'error', duration: 5000 });
       } else {
@@ -44,7 +44,7 @@ angular.module('libshareApp')
     }
 
     function statusMsgErroFonte(data) {
-      if (data.hasOwnProperty('status') && (data.status == '400')) {
+      if (data.hasOwnProperty('status') && (data.status == '400' || data.status == '500')) {
         return true;
       }
 

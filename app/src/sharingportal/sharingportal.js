@@ -28,6 +28,9 @@ angular.module('libshareApp')
 
     self.findSharing = findSharing;
 
+    var arrSharingItensSelected = [];
+    var arrSharingItensOld = [];
+
     init();
     function init() {
       if(LoginLogoutSrv.verifyAuth()){
@@ -55,7 +58,7 @@ angular.module('libshareApp')
       ,statusSharing: 'P'
       },
       {
-        id:1
+        id:2
       ,idSharing: 2
       ,bookName: 'Matilda'
       ,devolutionDate: '05/01/2019'
@@ -63,7 +66,7 @@ angular.module('libshareApp')
       ,statusSharing: 'P'
       },
       {
-        id: 2
+        id: 3
       ,idSharing: 3
       ,bookName: 'A Nastacia'
       ,devolutionDate: '23/12/2018'
@@ -71,7 +74,7 @@ angular.module('libshareApp')
       ,statusSharing: 'P'
       },
       {
-        id: 3
+        id: 2
       ,idSharing: 1
       ,bookName: 'Sitio do Picapau Amarelo'
       ,devolutionDate: '22/12/2018'
@@ -185,20 +188,34 @@ angular.module('libshareApp')
     }
 
     function onRowSelected(event) {
-      if (event){
-        var sharingItem = ArrayUtils.find(self.gridBuildOptionItem, function(item, index, arr){
-          if (event.node.data.id == item.idSharing) {
-              return true;
-          } else {
-            return false;
-          }
-        });
 
-        if (sharingItem) {
-          var arrData = [sharingItem];
-          self.gridOptionsItens.api.setRowData(arrData);
+      if (event ) {
+        var firsSelection = (arrSharingItensSelected.length == 0 && arrSharingItensOld.length == 0);
+        var otherSelection = (arrSharingItensSelected.length > 0 && arrSharingItensOld.length == 0);
+        if (firsSelection || otherSelection){
+          if (otherSelection) {
+            arrSharingItensOld = arrSharingItensSelected;
+            arrSharingItensSelected = [];
+          }
+
+          ArrayUtils.forEach(self.gridBuildOptionItem, function(item, index, arr){
+            if (event.node.data.id == item.idSharing) {
+                arrSharingItensSelected.push(item);
+            }
+          });
+  
+          if (arrSharingItensSelected.length > 0) {
+            self.gridOptionsItens.api.setRowData(arrSharingItensSelected);
+          } else if (arrSharingItensOld.length > 0 ){
+            arrSharingItensSelected 
+          }
+        } else {
+  
+          arrSharingItensOld = [];
         }
+
       }
+
 
 
 
