@@ -16,18 +16,18 @@
 
 		<link rel="stylesheet" href="css/ag-grid.css">
 		<!-- inject:css -->
+		<link rel="stylesheet" href="src/bookcase/bookcase.css">
 		<link rel="stylesheet" href="src/bookcasemy/bookcasemy.css">
+		<link rel="stylesheet" href="src/books/mapBooks.css">
 		<link rel="stylesheet" href="src/categories/categories.css">
 		<link rel="stylesheet" href="src/favorites/favorites.css">
-		<link rel="stylesheet" href="src/bookcase/bookcase.css">
-		<link rel="stylesheet" href="src/header/header.css">
 		<link rel="stylesheet" href="src/friends/friends.css">
+		<link rel="stylesheet" href="src/header/header.css">
 		<link rel="stylesheet" href="src/home/home.css">
 		<link rel="stylesheet" href="src/login/login.css">
 		<link rel="stylesheet" href="src/sharingportal/sharingportal.css">
 		<link rel="stylesheet" href="src/signup/signup.css">
 		<link rel="stylesheet" href="src/user/user.css">
-		<link rel="stylesheet" href="src/books/mapBooks.css">
 		<link rel="stylesheet" href="src/directives/lib-photo/lib-photo.css">
 		<link rel="stylesheet" href="src/directives/components/lib-blur/lib-blur.css">
 		<link rel="stylesheet" href="src/core/utils/image/select/image.select.css">
@@ -67,14 +67,15 @@
 		
 		<!-- inject:js -->
 	  <script src="src/app.js"></script>
+	  <script src="src/bookcase/bookcase.js"></script>
 	  <script src="src/bookcasemy/bookcasemy.js"></script>
+	  <script src="src/books/mapBooks.controller.js"></script>
 	  <script src="src/categories/categories.js"></script>
 	  <script src="src/categories/categories.service.js"></script>
 	  <script src="src/directives/directives.module.js"></script>
 	  <script src="src/favorites/favorites.js"></script>
-	  <script src="src/bookcase/bookcase.js"></script>
-	  <script src="src/header/header.js"></script>
 	  <script src="src/friends/friends.js"></script>
+	  <script src="src/header/header.js"></script>
 	  <script src="src/home/home.js"></script>
 	  <script src="src/login/login.js"></script>
 	  <script src="src/login/login.logout.service.js"></script>
@@ -82,10 +83,6 @@
 	  <script src="src/sharingportal/sharingportal.js"></script>
 	  <script src="src/signup/signup.js"></script>
 	  <script src="src/user/user.js"></script>
-	  <script src="src/books/mapBooks.controller.js"></script>
-	  <script src="src/directives/lib-photo/lib-photo.controller.js"></script>
-	  <script src="src/directives/lib-photo/lib-photo.directive.js"></script>
-	  <script src="src/directives/lib-photo/lib-photo.service.js"></script>
 	  <script src="src/core/utils/interceptor.js"></script>
 	  <script src="src/core/utils/stringutils.service.js"></script>
 	  <script src="src/core/utils/util.array.service.js"></script>
@@ -93,12 +90,9 @@
 	  <script src="src/core/utils/util.loadMaps.js"></script>
 	  <script src="src/core/utils/util.transport.service.js"></script>
 	  <script src="src/core/utils/utils.module.js"></script>
-	  <script src="src/directives/components/lib-checkbox/lib-checkbox.directive.js"></script>
-	  <script src="src/directives/components/lib-blur/lib-blur.directive.js"></script>
-	  <script src="src/directives/components/lib-grid/grid.controller.js"></script>
-	  <script src="src/directives/components/lib-grid/grid.directive.js"></script>
-	  <script src="src/directives/components/lib-map-popup/mapPopUp.controller.js"></script>
-	  <script src="src/directives/components/lib-map-popup/mapPopUp.directive.js"></script>
+	  <script src="src/directives/lib-photo/lib-photo.controller.js"></script>
+	  <script src="src/directives/lib-photo/lib-photo.directive.js"></script>
+	  <script src="src/directives/lib-photo/lib-photo.service.js"></script>
 	  <script src="src/core/utils/converter/util.converter.book.service.js"></script>
 	  <script src="src/core/utils/converter/util.converter.genre.service.js"></script>
 	  <script src="src/core/utils/converter/util.converter.statusbook.service.js"></script>
@@ -110,10 +104,16 @@
 	  <script src="src/core/utils/http/util.http.service.js"></script>
 	  <script src="src/core/utils/image/util.image.service.js"></script>
 	  <script src="src/core/utils/memory/util.memory.service.js"></script>
-	  <script src="src/directives/components/lib-input/text/inputText.controller.js"></script>
-	  <script src="src/directives/components/lib-input/text/inputText.directive.js"></script>
+	  <script src="src/directives/components/lib-blur/lib-blur.directive.js"></script>
+	  <script src="src/directives/components/lib-checkbox/lib-checkbox.directive.js"></script>
+	  <script src="src/directives/components/lib-grid/grid.controller.js"></script>
+	  <script src="src/directives/components/lib-grid/grid.directive.js"></script>
+	  <script src="src/directives/components/lib-map-popup/mapPopUp.controller.js"></script>
+	  <script src="src/directives/components/lib-map-popup/mapPopUp.directive.js"></script>
 	  <script src="src/core/utils/http/msgutils/util.message.service.js"></script>
 	  <script src="src/core/utils/image/select/image.select.directive.js"></script>
+	  <script src="src/directives/components/lib-input/text/inputText.controller.js"></script>
+	  <script src="src/directives/components/lib-input/text/inputText.directive.js"></script>
 	  <!-- endinject -->
 	  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-Giptkxnkk6cz4auMl01SvjDXFZQ1fTk&libraries=places&size=250x250"></script>
 	  <script src="http://localhost:35729/livereload.js?snipver=1" async="" defer=""></script>

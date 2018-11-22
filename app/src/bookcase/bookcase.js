@@ -32,14 +32,13 @@ angular.module('libshareApp')
     // self.statusFriend = ''; //Status - A - Aprovado, N - Negado, P - Pendente
     
     //Quando for amigo 
-    self.typeBtnFriend = 'btn-danger';//quando não for amigo
-    self.descriptionFriend = 'Desfazer amizade';
-    self.iconFriends = 'minus';
-    self.visibleFriends = true;
-    self.statusFriend = 'A'; //Status - A - Aprovado, N - Negado, P - Pendente
+    // self.typeBtnFriend = 'btn-danger';//quando não for amigo
+    // self.descriptionFriend = 'Desfazer amizade';
+    // self.iconFriends = 'minus';
+    // self.visibleFriends = true;
+    // self.statusFriend = 'A'; //Status - A - Aprovado, N - Negado, P - Pendente
 
     //Quando for pendente
-    // self.typeBtnFriend = 'btn-danger';//quando não for amigo
     // self.descriptionFriend = 'Aguardando resposta';
     // self.iconFriends = 'minus';
     // self.visibleFriends = false;
@@ -289,27 +288,78 @@ angular.module('libshareApp')
       var user = self.userDetails.id;
       var friend = self.profile.id;
 
-      var urlFriends = URLS_SERVICES.FRIENDS + "/" + user + "/" + friend; 
+      var urlFriends = URLS_SERVICES.FRIENDS_STATUS + "/" + user + "/" + friend; 
       RestSrv.find(urlFriends, function(response){
+        if (StringUtils.isEmpty(response)) {
 
-        self.visibleFriends = true;
+          //quando não for amigo
+          self.typeBtnFriend = 'btn-success';
+          self.descriptionFriend = 'Solicitar amizade';
+          self.iconFriends = 'plus';
+          self.visibleFriends = false;
+          self.statusFriend = ''; //Status - A - Aprovado, N - Negado, P - Pendente
+        } else {
+          self.friend = response;
+
+          var status = response.statusFriend;
+          if (status == "P") {
+            self.descriptionFriend = 'Aguardando resposta';
+            self.iconFriends = 'minus';
+            self.visibleFriends = false;
+            self.statusFriend = 'P'; //Status - A - Aprovado, N - Negado, P - Pendente
+          } else if (status == "A") {
+            //Quando for amigo 
+            self.typeBtnFriend = 'btn-danger';//quando não for amigo
+            self.descriptionFriend = 'Desfazer amizade';
+            self.iconFriends = 'minus';
+            self.visibleFriends = true;
+            self.statusFriend = 'A'; //Status - A - Aprovado, N - Negado, P - Pendente
+          } else if (status == "N") {
+            //Quando não for amigo 
+            self.typeBtnFriend = 'btn-success';//quando não for amigo
+            self.descriptionFriend = 'Solicitar amizade';
+            self.iconFriends = 'plus';
+            self.visibleFriends = false;
+            self.statusFriend = ''; //Status - A - Aprovado, N - Negado, P - Pendente
+          }
+        }
       });
     }
 
     function addOrRemoveFriend (statusFriends) {
+      var user = self.userDetails.id;
+      var friend = self.profile.id;
+
       if (StringUtils.isEmpty(statusFriends)){
         //Adicionando usuário passaremos para aguardando resposta (Pendente)
-        self.typeBtnFriend = '';//quandor estiver pendente
-        self.descriptionFriend = 'Aguardando resposta';
-        self.classStatusFriend = 'caret';
-        self.statusFriend = 'P';
-        self.visibleFriends = true;
+        self.friend = {
+          statusFriend: 'P',
+          myUserCode: user,
+          userCodeFriend: friend
+        };
+
+        RestSrv.add(URLS_SERVICES.FRIENDS_NEW_FRIEND, self.friend, function(response){
+          //quandor estiver pendente
+          if (response.statusFriend == "P") {
+            self.friend = response;
+            self.typeBtnFriend = '';
+            self.descriptionFriend = 'Aguardando resposta';
+            self.classStatusFriend = 'caret';
+            self.statusFriend = 'P';
+            self.visibleFriends = false;  
+          }
+        });
       } else if (statusFriends === 'P' || statusFriends === 'A'){
-        //quando já fizer solicitação e quiser cancelar
-        self.typeBtnFriend = 'btn-success';
-        self.descriptionFriend = 'Solicitar amizade';
-        self.statusFriend = '';
-        self.visibleFriends = false;
+
+        RestSrv.delete(URLS_SERVICES.FRIENDS, self.friend, function(response) {
+
+          //quando já fizer solicitação e quiser cancelar
+          self.typeBtnFriend = 'btn-success';
+          self.descriptionFriend = 'Solicitar amizade';
+          self.statusFriend = '';
+          self.iconFriends = 'plus';
+          self.visibleFriends = false;
+        });
       }
     }
 

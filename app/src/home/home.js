@@ -26,6 +26,7 @@ angular
     ,'SHARING_PORTAL_NEW': PRIVATE + '/sharingportal/newSharing'
     ,'FRIENDS': PRIVATE + '/friends/'
     ,'FRIENDS_STATUS': PRIVATE + '/friends/statusFriend/'
+    ,'FRIENDS_NEW_FRIEND': PRIVATE + '/friends/newFriend/'
 })
 .controller('HomeCtrl', HomeController);
 
