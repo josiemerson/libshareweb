@@ -44,14 +44,16 @@ angular.module('libshareApp')
         self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
       } else if (!StringUtils.isEmpty(userDetails)) {
 
-        RestSrv.find(URLS_SERVICES.PROFILE_BY_CODUSU + userDetails.id, function(data){
+        RestSrv.find(URLS_SERVICES.USER_BY_ID + userDetails.id, function(data){
           if (data && data.hasOwnProperty('msg')) {
 
             self.profile = addInfoCountry({codUsu: userDetails.id});
             self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
           } else {
+            self.profile = data.profile;
+            self.user = data;
 
-            self.profile = addInfoCountry(data);
+            // self.profile = addInfoCountry(self.profile);
             addPropIfNotExists(self.profile, 'codUsu', userDetails.id);
             self.profile.allowShowPhone = self.profile.allowShowPhone == 'S';
 

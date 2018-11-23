@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('libshareApp')
-  .controller('FriendsCtrl', function($scope, RestSrv, ArrayUtils) {
+  .controller('FriendsCtrl', function($scope, $rootScope, RestSrv, ArrayUtils, URLS_SERVICES, ImageSrv) {
     var self = this;
 
     self.selected = '1';
@@ -10,22 +10,57 @@ angular.module('libshareApp')
     self.removeUser = removeUser;
 
     self.newFriends = [
-      {name: 'Renato', lastName: 'Junior Ribeiro', pathFoto:'../img/users/ID_7/renato.jpg'}
-      ,{name: 'Renan', lastName: 'Cantare', pathFoto:'../img/users/ID_6/renan.jpg'}
-      ,{name: 'Marcela', lastName: 'Pimenta', pathFoto:'../img/users/ID_3/marcela.JPG'}
-      ,{name: 'Luzia', lastName: 'Fonseca', pathFoto:'../img/users/ID_2/Luzia.JPG'}      
+      // {name: 'Renato', lastName: 'Junior Ribeiro', pathFoto:'../img/users/ID_7/renato.jpg'}
+      // ,{name: 'Renan', lastName: 'Cantare', pathFoto:'../img/users/ID_6/renan.jpg'}
+      // ,{name: 'Marcela', lastName: 'Pimenta', pathFoto:'../img/users/ID_3/marcela.JPG'}
+      // ,{name: 'Luzia', lastName: 'Fonseca', pathFoto:'../img/users/ID_2/Luzia.JPG'}      
     ];
 
     self.friends = [
-      {name: 'Gabriela', lastName: 'Ferreira Martins', pathFoto:'../img/users/ID_9/gabriela.jpg'}
-      ,{name: 'Samuel', lastName: 'Abdias', pathFoto:'../img/users/ID_8/samuel.jpg'}
-      ,{name: 'Marcio', lastName: 'Faria', pathFoto:'../img/users/ID_4/marcio.jpg'}
-      ,{name: 'Regina', lastName: 'Barcelos de Souza', pathFoto:'../img/users/ID_5/regina.jpg'}      
+      // {name: 'Gabriela', lastName: 'Ferreira Martins', pathFoto:'../img/users/ID_9/gabriela.jpg'}
+      // ,{name: 'Samuel', lastName: 'Abdias', pathFoto:'../img/users/ID_8/samuel.jpg'}
+      // ,{name: 'Marcio', lastName: 'Faria', pathFoto:'../img/users/ID_4/marcio.jpg'}
+      // ,{name: 'Regina', lastName: 'Barcelos de Souza', pathFoto:'../img/users/ID_5/regina.jpg'}      
     ];
     
     init()
     function init(){
-      hasNewUser();
+      self.userDetails = $rootScope.authDetails.user;
+
+      findFriendsByStatus('A', function(response){
+        var listDataFriends = response;
+
+        ArrayUtils.forEach(listDataFriends, function(item, index, arr) {
+          var dataFriend = item.dataFriends;
+          var statusFriend =  dataFriend.statusFriend;
+          var userFriends = item.userFriends;
+          
+          var isFriend = statusFriend == "A" ? true : false;
+          var profile = userFriends.profile;
+          var friendFake = {name: profile.name
+            ,lastName : profile.lastName
+            , pathFoto : ImageSrv.buildUrlImage(profile.id, profile.pathFoto)
+            , friend: dataFriend
+          };
+
+          if (isFriend) {
+
+            self.friends.push(friendFake);
+          } else {
+
+            self.newFriends.push(friendFake);
+          }
+        });
+
+        hasNewUser();
+      })
+    }
+
+    function findFriendsByStatus(status, callback){
+      var url = URLS_SERVICES.FRIENDS_LIST_BY_STATUS + self.userDetails.id + "/" + status
+      RestSrv.find(url, function(response){
+        callback(response);
+      });
     }
 
     self.isSelected = function (id){
@@ -50,26 +85,27 @@ angular.module('libshareApp')
     }
 
     function acceptUser(profile) {
-      // self.newFriends(function(item, index, arr){
-      //   if (item.id == profile.id){
-
-      //   }
-      // });
-
-      self.newFriends.splice(profile, 1);
-      self.friends.push(profile);
-
-      hasNewUser();
-      // splice
+      RestSrv.edit(URLS_SERVICES.FRIENDS, profile.friend, function(response){
+        
+        self.newFriends.splice(profile, 1);
+        self.friends.push(profile);
+        hasNewUser();
+      });
     }
 
     function negateUser (profile) {
-      self.newFriends.splice(profile, 1);
+      RestSrv.delete(URLS_SERVICES.FRIENDS, profile.friend, function(response){
 
-      hasNewUser();
+        self.newFriends.splice(profile, 1);
+  
+        hasNewUser();
+      });
     }
 
     function removeUser (profile) {
-      self.friends.splice(profile, 1);
+      RestSrv.delete(URLS_SERVICES.FRIENDS, profile.friend, function(response){
+
+        self.friends.splice(profile, 1);
+      });
     }
   });

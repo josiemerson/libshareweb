@@ -334,8 +334,8 @@ angular.module('libshareApp')
         //Adicionando usuário passaremos para aguardando resposta (Pendente)
         self.friend = {
           statusFriend: 'P',
-          myUserCode: user,
-          userCodeFriend: friend
+          myUserCode: friend,
+          userCodeFriend: user
         };
 
         RestSrv.add(URLS_SERVICES.FRIENDS_NEW_FRIEND, self.friend, function(response){

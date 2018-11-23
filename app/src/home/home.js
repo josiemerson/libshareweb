@@ -27,6 +27,7 @@ angular
     ,'FRIENDS': PRIVATE + '/friends/'
     ,'FRIENDS_STATUS': PRIVATE + '/friends/statusFriend/'
     ,'FRIENDS_NEW_FRIEND': PRIVATE + '/friends/newFriend/'
+    ,'FRIENDS_LIST_BY_STATUS': PRIVATE + '/friends/listFriend/'
 })
 .controller('HomeCtrl', HomeController);
 
