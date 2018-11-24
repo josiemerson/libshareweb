@@ -5,7 +5,7 @@ angular.module('libshareApp')
     var servicesImg = {};
 
     servicesImg.buildUrlImage = function (idUser, pathFoto,idBook,bookDefault){
-      var imageDefault = bookDefault ? "112312s3ko13a123xomnajcnhasbookLibshare.png": "user.png";
+      var imageDefault = bookDefault ? "112312s3ko13a123xomnajcnhasbookLibshare.png": "112312s3ko13a123xomnajcnhasuser.png";
       var urlImage = "../";
       if (!StringUtils.isEmpty(pathFoto)) {
         if (pathFoto === '112312s3ko13a123xomnajcnhasbookLibshare.png'){
@@ -39,6 +39,18 @@ angular.module('libshareApp')
       }
 
       return retorno;
+    }
+
+    servicesImg.treatmentSaveImgBook = function(filename, user, img){
+        if (img.indexOf('112312s3ko13a123xomnajcnhasbookLibshare.png') > -1) {
+            img = "112312s3ko13a123xomnajcnhasbookLibshare.png";
+        } else if (img.indexOf('base64') > -1){
+          img = user + "_user@" + filename + "_filename@"+ img;
+        } else {
+          img = undefined;
+        }
+
+     return img;
     }
 
     return servicesImg;

@@ -39,7 +39,7 @@ angular.module('libshareApp')
           var profile = userFriends.profile;
           var friendFake = {name: profile.name
             ,lastName : profile.lastName
-            , pathFoto : ImageSrv.buildUrlImage(profile.id, profile.pathFoto)
+            , pathFoto : ImageSrv.buildUrlImage(profile.codUsu, profile.pathFoto)
             , friend: dataFriend
           };
 
@@ -85,6 +85,7 @@ angular.module('libshareApp')
     }
 
     function acceptUser(profile) {
+      profile.friend.statusFriend = "A";
       RestSrv.edit(URLS_SERVICES.FRIENDS, profile.friend, function(response){
         
         self.newFriends.splice(profile, 1);

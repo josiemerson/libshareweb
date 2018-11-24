@@ -157,7 +157,8 @@ angular.module('libshareApp')
         item.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook(item.bookStatus);
         item.sharingTypePresentation = ConverterBookSrv.converterSiglaToDescTypeShare(item.sharingType);
 
-        item.pathFoto = ImageSrv.buildUrlImage(self.codUsu, item.pathFoto, item.id);
+        var bookDefault = true;
+        item.pathFoto = ImageSrv.buildUrlImage(self.codUsu, item.pathFoto, item.id, bookDefault);
 
         item.releaseYear = convertLancamento(item.releaseYear);
       });
@@ -180,7 +181,12 @@ angular.module('libshareApp')
       if (self.addBookMode) {
         //../../img/users/book.png
         copyBook = angular.copy(book);
-        copyBook.pathFoto = ImageSrv.treatmentUrlImage(copyBook.pathFoto);
+        var filename = "";
+        if (self.fileSelected) {
+          filename = self.self.fileSelected.filename;
+        }
+
+        copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
         //adicionar book
         RestSrv.add(URLS_SERVICES.BOOKS_NEW, copyBook, function(response){
           book.id = response.id;
@@ -189,7 +195,13 @@ angular.module('libshareApp')
         });
       } else {
         copyBook = angular.copy(book);
-        copyBook.pathFoto = ImageSrv.treatmentUrlImage(copyBook.pathFoto);
+
+        var filename = "";
+        if (self.fileSelected) {
+          filename = self.self.fileSelected.filename;
+        }
+
+        copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
         //editbook
         RestSrv.edit(URLS_SERVICES.BOOKS_EDIT, copyBook, function(response){
           self.newOrEditBook = false;
@@ -213,8 +225,14 @@ angular.module('libshareApp')
 
     function alterarImage(){
       LibPhotoSrv.open().then(function(fileSelected){
-        var img = 'data:' + fileSelected.filetype + ';base64,' + fileSelected.base64;
-        self.bookAddEdit.pathFoto = img;
+        if (fileSelected){
+
+          var img = 'data:' + fileSelected.filetype + ';base64,' + fileSelected.base64;
+          self.bookAddEdit.pathFoto = img;
+          self.fileSelected = fileSelected;          
+        } else {
+          MsgUtils.showAlert("Nenhuma imagem escolhida.");
+        }
       }, function(){
 //cancel
       });
