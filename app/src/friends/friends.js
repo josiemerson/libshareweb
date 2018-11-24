@@ -9,6 +9,7 @@ angular.module('libshareApp')
     self.negateUser = negateUser;
     self.removeUser = removeUser;
 
+    self.area = "area";
     self.newFriends = [
       // {name: 'Renato', lastName: 'Junior Ribeiro', pathFoto:'../img/users/ID_7/renato.jpg'}
       // ,{name: 'Renan', lastName: 'Cantare', pathFoto:'../img/users/ID_6/renan.jpg'}
@@ -27,6 +28,7 @@ angular.module('libshareApp')
     function init(){
       self.userDetails = $rootScope.authDetails.user;
 
+      RestSrv.blockRequest('Carregando amigos');
       findFriendsByStatus('A', function(response){
         var listDataFriends = response;
 
@@ -52,7 +54,13 @@ angular.module('libshareApp')
           }
         });
 
+        if (listDataFriends.length > 3) {
+          self.area = '';
+          self.heighArea = listDataFriends
+        }
         hasNewUser();
+
+        RestSrv.unblockRequest();
       })
     }
 

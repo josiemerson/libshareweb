@@ -250,21 +250,22 @@ angular.module('libshareApp')
   
         //utilizar no callback da chamada de serviço
         RestSrv.add(URLS_SERVICES.SHARING_PORTAL_NEW, sharing, function(response){
-            $.unblockUI;
+            RestSrv.unblockRequest();
         })
 
-        $.blockUI({
-          message: 'Enviando solicitação'
-          ,css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .5, 
-            color: '#fff' 
-        } }); 
-        setTimeout($.unblockUI, 2000); 
+        RestSrv.blockRequest('Enviando solicitação');
+        // $.blockUI({
+        //   message: 'Enviando solicitação'
+        //   ,css: { 
+        //     border: 'none', 
+        //     padding: '15px', 
+        //     backgroundColor: '#000', 
+        //     '-webkit-border-radius': '10px', 
+        //     '-moz-border-radius': '10px', 
+        //     opacity: .5, 
+        //     color: '#fff' 
+        // } }); 
+        // setTimeout($.unblockUI, 2000); 
       }              
     }
 

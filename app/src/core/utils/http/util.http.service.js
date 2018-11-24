@@ -48,5 +48,30 @@ angular.module('libshareApp')
       HttpRequestSrv(url, 'DELETE', data, callback, catchError);
     };
 
+
+    restFactory.blockRequest = function(msg, timeout){
+      $.blockUI({
+        message: msg
+        ,css: { 
+          border: 'none', 
+          padding: '15px', 
+          backgroundColor: '#000', 
+          '-webkit-border-radius': '10px', 
+          '-moz-border-radius': '10px', 
+          opacity: .5, 
+          color: '#fff' 
+      } }); 
+
+      if (!timeout){
+        timeout = 10000;
+      }
+      setTimeout($.unblockUI, timeout); 
+
+    }
+
+    restFactory.unblockRequest = function(){
+      $.unblockUI();
+    }
+
     return restFactory;
   });

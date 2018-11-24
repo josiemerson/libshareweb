@@ -1,10 +1,10 @@
 <div class="container color-default" id="friends">
 	<div class="row">
     	<div class="col-md-12">
-            <div class="col-xs-12 col-md-12 background-blank space-default area">
+            <div class="col-xs-12 col-md-12 background-blank space-default {{ctrl.area}}">
 					<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation" ng-class="{active:ctrl.isSelected(1)}">
-								<a class="color-default" ng-click="ctrl.select(1)" aria-controls="all items" role="tab">Amigos <span class="glyphicon glyphicon-user"></span></a>
+								<a class="color-default font-default" ng-click="ctrl.select(1)" aria-controls="all items" role="tab">Amigos <span class="glyphicon glyphicon-user"></span></a>
 							</li>
 							<li role="presentation" ng-class="{active:ctrl.isSelected(2)}">
 								<a class="color-default {{ctrl.classeNewFriend}}" ng-click="ctrl.select(2)" aria-controls="" role="tab">Novas solicitações <span class="glyphicon glyphicon-check"></span></a>
@@ -15,7 +15,7 @@
 					</ul>
 					<div class="tab-content vboxLib">
 						<div class="friendsFind col-xs-12 col-sm-12  col-md-8 col-lg-5" >
-							<small class="color-default">Buscar</small><input class="form-control" type="text" ng-model="ctrl.findFriends" placeholder="ex: Josiemerson">
+							<small class="color-default">Buscar</small><input class="form-control" type="text" ng-model="ctrl.findFriends" placeholder="ex: Fulano">
 						</div>
 						<hr class="hrFriends">
 						<div ng-show="ctrl.isSelected(1)">
@@ -26,13 +26,13 @@
 											<img class="imgbookcasemy" src="{{profile.pathFoto}}" alt="Smiley face"/>
 										</div>
 										<div class="vboxLib expandAll flex infoFriends justify-center">
-											<span class="color-default"><span class="color-default" >Nome: </span>{{profile.name}}</span>
-											<span class="color-default"><span class="color-default" >Sobrenome: </span>{{profile.lastName}}</span>
+											<span class="color-default font-default"><span class="color-default" >Nome: </span>{{profile.name}}</span>
+											<span class="color-default font-default"><span class="color-default" >Sobrenome: </span>{{profile.lastName}}</span>
 										</div>
 										<div class="hboxLib expandAll flex center justify-center">
 											<div>
 												<button ng-click="ctrl.removeUser(profile)"  class="btn btn-danger">
-													<span class="glyphicon glyphicon-remove"> Excluir</span>
+													<span class="glyphicon glyphicon-remove"><span class="font-default"> Desfazer amizade</span></span>
 												</button>
 											</div>
 										</div>
