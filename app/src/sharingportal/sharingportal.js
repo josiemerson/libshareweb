@@ -138,10 +138,10 @@ angular.module('libshareApp')
       if (tipo == 'sharing') {
         return [
           { headerName: "Compartilhamento", field: "id", width: 150, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Cód. Emprestador", field: "userOrigin", width: 150, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Emprestador", field: "nameUserOrigin" },
-          { headerName: "Cód. Solicitante", field: "userDestiny", width: 150, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Solicitante", field: "nameUserDestiny" },
+          { headerName: "Cód. Emprestador", field: "userOrigin.profile.codUsu", width: 150, cellStyle: { 'text-align': 'right' } },
+          { headerName: "Emprestador", field: "userOrigin.profile.name" },
+          { headerName: "Cód. Solicitante", field: "userDestiny.profile.codUsu", width: 150, cellStyle: { 'text-align': 'right' } },
+          { headerName: "Solicitante", field: "nameUserDestiny.profile.name" },
           {
             // headerName: "Data Compartilhamento", field: "sharingDateAndHour", valueGetter: function chainValueGetter(params) {
             //   return DateUtils.formatDate(params.data.sharingDateAndHour);
@@ -155,8 +155,8 @@ angular.module('libshareApp')
       if (tipo == 'sharingItem') {
         return [
           { headerName: "Item", field: "id", width: 100, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Código Livro", field: "idSharing", width: 100, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Titulo Livro", field: "bookName" },
+          { headerName: "Código Livro", field: "book.id", width: 100, cellStyle: { 'text-align': 'right' } },
+          { headerName: "Titulo Livro", field: "book.name" },
           {
             headerName: "Data devolução", field: "devolutionDate", cellStyle: { 'text-align': 'right' }
             // ,valueGetter: function chainValueGetter(params) {
@@ -179,14 +179,24 @@ angular.module('libshareApp')
       // buildSharingItem();
       var params = buildParams();
 
-      //Apesar de estar como edit é uma requisição de consulta
-      RestSrv.edit(URLS_SERVICES.SHARING_PORTAL_GET_SHARING, params, function(response){
+      //Apesar de estar como add é uma requisição de consulta
+      RestSrv.add(URLS_SERVICES.SHARING_PORTAL_GET_SHARING, params, function(response){
         if (!StringUtils.isEmpty(response)){
-          self.sharingEntity = response.sharingEntity;
-          self.gridOptions.api.setRowData(sharingEntity);
+          self.sharingEntity = [];
+          self.sharingItens = [];
 
-          self.sharingItens = response.sharingItens;
-          self.gridOptionsItens.api.setRowData(buildSharingItem(self.sharingItens));
+          ArrayUtils.forEach(response, function(item, index, arr){
+            self.sharingEntity.push(item.sharingEntity);
+            ArrayUtils.forEach(item.sharingItens, function(itemSharing, index, arr){
+              self.sharingItens.push(itemSharing);
+            });
+          });
+
+          self.gridOptions.api.setRowData(self.sharingEntity);
+
+
+          buildSharingItem(self.sharingItens)
+          self.gridOptionsItens.api.setRowData(null);
         }
 
         RestSrv.unblockRequest();
@@ -225,11 +235,11 @@ angular.module('libshareApp')
       if (!StringUtils.isEmpty(self.dtCompFim)) {
         params.dtCompFim = self.dtCompFim;
       }
-      if (!StringUtils.isEmpty()) {
-        params.statusBook = self.codUsuDestiny;
+      if (!StringUtils.isEmpty(self.statusBook)) {
+        params.statusBook = self.statusBook;
       }
-      if (!StringUtils.isEmpty()) {
-        params.sharingWithMe = self.sharingWyithMe;
+      if (!StringUtils.isEmpty(self.sharingWithMe)) {
+        params.sharingWithMe = self.sharingWithMe;
       }
 
       return params;
@@ -279,7 +289,7 @@ angular.module('libshareApp')
           }
 
           ArrayUtils.forEach(self.gridBuildOptionItem, function(item, index, arr){
-            if (event.node.data.id == item.idSharing) {
+            if (event.node.data.id == item.sharing) {
                 arrSharingItensSelected.push(item);
             }
           });
