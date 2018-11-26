@@ -87,13 +87,27 @@ function( $scope,RestSrv,Transporter, ArrayUtils, CategoriesSrv, StringUtils, ng
 
 		function refreshMarkersInMap(){
 			var map = self.map;
+			self.userDetails = $rootScope.authDetails.user;
 
-			if (navigator.geolocation) {
+			if (true) {
+				myPosition = {
+					lat: -18.9220192,
+					lng: -48.3150347
+				};
+
+				map.setCenter(myPosition);
+			} else if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					myPosition = {
 						lat: position.coords.latitude,
 						lng: position.coords.longitude
 					};
+					myPosition = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
+
+					Lat:-18.9220192;Long:-48.3150347
 
 					map.setCenter(myPosition);
 
@@ -114,7 +128,11 @@ function( $scope,RestSrv,Transporter, ArrayUtils, CategoriesSrv, StringUtils, ng
 			if (category && category.genre) {
 				self.clickedGenre = category.genre;
 
-				CategoriesSrv.findProfileByCategories	(category.genre, function(dataResponse){
+				var params = {genre: category.genre,
+					userLogged: self.userDetails.id
+				};
+
+				CategoriesSrv.findProfileByCategoriesWithoutUserLogged	(params, function(dataResponse){
 
 					if (dataResponse.hasOwnProperty('status') && dataResponse.status == '404') {
 
@@ -161,12 +179,12 @@ function( $scope,RestSrv,Transporter, ArrayUtils, CategoriesSrv, StringUtils, ng
 			var isUser = false;
 
 			var dataMarker = {  
-				id: profile.id
+				id: profile.codUsu
 				,profile : profile
 				,name : profile.name
 				,lastName: profile.lastName
 				,location: position
-				,image : getImagem(profile.id, profile.pathFoto)
+				,image : getImagem(profile.codUsu, profile.pathFoto)
 			};
 
 			var marker = addCommonMarker(dataMarker, map);				

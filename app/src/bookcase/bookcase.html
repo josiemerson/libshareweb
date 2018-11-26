@@ -44,12 +44,12 @@
 					<span class="glyphicon glyphicon-arrow-left"><span> Livros</span></span>
 				</button>
 
-				<div class="hboxLib"  ng-show="!ctrl.visibleListCarOfBooks" >
-					<input class="form-control" ng-model="ctrl.queryBook" type="text" placeholder="Filtrar livros" autofocus/>
+				<div class="hboxLib"  ng-show="!ctrl.visibleListCarOfBooks">
+					<input class="form-control" ng-model="ctrl.queryBook" ng-disabled="ctrl.qtdAddBooks == 0 && !ctrl.visibleFriends" type="text" placeholder="Filtrar livros" autofocus/>
 				</div>
-				<div  class="hboxLib" style=" width: 45px; height: 34px;float: left;">
+				<div  class="hboxLib" style=" width: 45px; height: 34px;float: left;" ng-disabled="!ctrl.visibleFriends">
 					<div class="flex" style="position: absolute;">
-						<span ng-disabled="ctrl.qtdAddBooks == 0 || ctrl.visibleListCarOfBooks" ng-click="ctrl.openCarKnowing()" style=" width: 45px; height: 34px;" class="glyphicon glyphicon-briefcase btn btn-info"></span>
+						<span ng-disabled="!ctrl.visibleFriends || ctrl.qtdAddBooks == 0 || ctrl.visibleListCarOfBooks" ng-click="ctrl.openCarKnowing()" style=" width: 45px; height: 34px;" class="glyphicon glyphicon-briefcase btn btn-info"></span>
 					</div>
 					<div ng-show="ctrl.qtdAddBooks > 0" style="position: absolute;" class="flex">
 						<span class="qtdAddBooks">{{ctrl.qtdAddBooks}}</span>				

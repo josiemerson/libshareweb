@@ -7,7 +7,11 @@ angular.module('libshareApp')
   .constant('ITEM_SHARING_STATUS', {
      'L': 'Liberado', 'N' : 'Negado', 'P': 'Pendente'
   })
-  .service('ConverterStatusSrv', ['BOOK_STATUS', 'ArrayUtils', 'ITEM_SHARING_STATUS', function(BOOK_STATUS, ArrayUtils, ITEM_SHARING_STATUS) {
+  .constant('TYPE_SHARING', {
+     'C': 'Compartilhamento', 'V' : 'Venda'
+  })
+  .service('ConverterStatusSrv', ['BOOK_STATUS', 'ArrayUtils', 'ITEM_SHARING_STATUS', 'TYPE_SHARING',
+   function(BOOK_STATUS, ArrayUtils, ITEM_SHARING_STATUS, TYPE_SHARING) {
     this.converterSiglaToDescStatusBook = function(sigla) {
         return BOOK_STATUS[sigla];
     }
@@ -25,6 +29,18 @@ angular.module('libshareApp')
 
     this.converterDescToSiglaStatusItemSharing = function(description) {
         return ArrayUtils.find(ITEM_SHARING_STATUS, function(item, index, arr){
+            if (item === description){
+              return true;
+            }
+        });
+    }
+
+    this.converterSiglaToDescTypeItemSharing = function(sigla) {
+        return TYPE_SHARING[sigla];
+    }
+
+    this.converterDescToSiglaTypeItemSharing = function(description) {
+        return ArrayUtils.find(TYPE_SHARING, function(item, index, arr){
             if (item === description){
               return true;
             }

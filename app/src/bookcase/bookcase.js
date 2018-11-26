@@ -84,7 +84,7 @@ angular.module('libshareApp')
           if (self.dataOfBooksProfile && self.dataOfBooksProfile.hasOwnProperty('profile')) {
             self.profile = self.dataOfBooksProfile.profile;
             profile = self.profile;
-            self.imageProfile = ImageSrv.buildUrlImage(profile.id, profile.pathFoto);
+            self.imageProfile = ImageSrv.buildUrlImage(profile.codUsu, profile.pathFoto);
 
             findStatusFriends()
           } else {
@@ -92,7 +92,7 @@ angular.module('libshareApp')
             self.imageProfile = ImageSrv.buildUrlImage(null, null);
           }
 
-          getBooksByUser(profile.id, function(books){
+          getBooksByUser(profile.codUsu, function(books){
             self.books = books;
         
                     // self.nameUser = profile.name + ' ' + profile.lastName;
@@ -171,8 +171,10 @@ angular.module('libshareApp')
     }
 
     function openCarKnowing(){
-      self.visibleListCarOfBooks = true;
-      self.titleDinamic = 'Solicitação de compartilhamento';
+      if (self.visibleFriends && self.qtdAddBooks> 0) {
+        self.visibleListCarOfBooks = true;
+        self.titleDinamic = 'Solicitação de compartilhamento';
+      }
     }
 
     function removeBookOfList(book) {
@@ -214,7 +216,7 @@ angular.module('libshareApp')
 
         var sharing= {
           userOrigin: self.userDetails.id,
-          userDestiny: self.profile.id,
+          userDestiny: self.profile.codUsu,
           sharingItem: [],// Valor do compartilhamento
           sharingDateAndHour: '', //data e hora do compartilhamento
           sharingValue: ''
@@ -239,7 +241,7 @@ angular.module('libshareApp')
             book: item
           } ; 
 
-          removeProperties(sharingItem.book, ["genrePresentation", "statusBookcase", "bookStatusPresentation", "disabledBookCase", "devolutionDate"]);
+          removeProperties(sharingItem.book, ["genrePresentation", "statusBookcase", "bookStatusPresentation", "disabledBookCase", "devolutionDate", "sharingTypePresentation"]);
   
             var sharingItemCopy = angular.copy(sharingItem);
             //Fazemos isso para que o item referente ao livro não seja alterado pelo próximo sharingItem;
@@ -249,11 +251,11 @@ angular.module('libshareApp')
         sharing.sharingValue = sumSharingValue;
   
         //utilizar no callback da chamada de serviço
+        RestSrv.blockRequest('Enviando solicitação');
         RestSrv.add(URLS_SERVICES.SHARING_PORTAL_NEW, sharing, function(response){
             RestSrv.unblockRequest();
         })
 
-        RestSrv.blockRequest('Enviando solicitação');
         // $.blockUI({
         //   message: 'Enviando solicitação'
         //   ,css: { 
@@ -287,7 +289,7 @@ angular.module('libshareApp')
 
     function findStatusFriends(){
       var user = self.userDetails.id;
-      var friend = self.profile.id;
+      var friend = self.profile.codUsu;
 
       var urlFriends = URLS_SERVICES.FRIENDS_STATUS + "/" + user + "/" + friend; 
       RestSrv.find(urlFriends, function(response){
@@ -329,7 +331,7 @@ angular.module('libshareApp')
 
     function addOrRemoveFriend (statusFriends) {
       var user = self.userDetails.id;
-      var friend = self.profile.id;
+      var friend = self.profile.codUsu;
 
       if (StringUtils.isEmpty(statusFriends)){
         //Adicionando usuário passaremos para aguardando resposta (Pendente)

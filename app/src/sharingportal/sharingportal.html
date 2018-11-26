@@ -23,9 +23,9 @@
 		<div class="vboxLib  containerSharingLib">
 			<label class="color-default">Período Compartilhamento</label>
 			<div class="hboxLib">
-				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Inicio" ng-model="ctrl.dtDevolutionIni" required/>
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Inicio" ng-model="ctrl.dtCompIni" required/>
 				<span class="center justify-center spanAShare"> a </span>
-				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Fim" ng-model="ctrl.dtDevolutionFin" required/>
+				<input type="date" class="form-control color-default fontsSharingPortal" placeholder="Fim" ng-model="ctrl.dtCompFim" required/>
 			</div>
 		</div>
  
@@ -40,9 +40,15 @@
 
 		<div class="vboxLib  containerSharingLib">
 			<label class="color-default">Status</label>
-			<select name="statusFriendsSelect" class="form-control color-default fontsSharingPortal" id="statusFriendsSelect" ng-model="ctrl.statusFriends">
-					<option value="" class="color-default fontsSharingPortal">---Selecionar---</option> <!-- not selected / blank option -->
-					<option ng-Repeat="data in ctrl.statusFriendsOptions" class="color-default fontsSharingPortal" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+			<select name="statusBookSelect" class="form-control color-default fontsSharingPortal" id="statusBookSelect" ng-model="ctrl.statusBook">
+					<option ng-Repeat="data in ctrl.statusBookOptions" class="color-default fontsSharingPortal" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+			</select>
+		</div>
+
+		<div class="vboxLib  containerSharingLib">
+			<label class="color-default">Compartilhado</label>
+			<select name="statusSharingWithMeSelect" class="form-control color-default fontsSharingPortal" id="statusSharingWithMeSelect" ng-model="ctrl.sharingWithMe">
+					<option ng-Repeat="data in ctrl.sharingWithMeOptions" class="color-default fontsSharingPortal" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
 			</select>
 		</div>
 	</div>

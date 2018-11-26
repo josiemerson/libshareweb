@@ -2,7 +2,7 @@
 
 angular.module('libshareApp')
   .controller('SharingPortalCtrl', 
-  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils) {
+  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils) {
     var self = this;
 
     self.showFilter = true;
@@ -20,11 +20,21 @@ angular.module('libshareApp')
       onRowSelected: onRowSelectedItem,
     };
 
-    self.statusFriendsOptions = [
+    self.statusBookOptions = [
       {key: 'A', value: 'Aprovado'}
       ,{key: 'N', value: 'Negado'}
       ,{key: 'P', value: 'Pendente'}
     ];
+
+    self.statusBook = "P";
+
+    self.sharingWithMeOptions = [
+      {key: 'A', value: 'Com ambos'}
+      ,{key: 'C', value: 'Comigo'}
+      ,{key: 'P', value: 'Por mim'}
+    ];
+
+    self.sharingWithMe = 'A';
 
     self.findSharing = findSharing;
 
@@ -34,7 +44,10 @@ angular.module('libshareApp')
     init();
     function init() {
       if(LoginLogoutSrv.verifyAuth()){
-          // if ($routeParams.id) {
+        self.userDetails = $rootScope.authDetails.user;
+        self.codUsuLogged = self.userDetails.id;
+
+        // if ($routeParams.id) {
           //   findyPet(base64.decode($routeParams.id));
           // }
   
@@ -56,6 +69,8 @@ angular.module('libshareApp')
       ,devolutionDate: '03/12/2018'
       ,observation: ''
       ,statusSharing: 'P'
+      ,sharingType: 'C'
+      ,sharingItem: 0
       },
       {
         id:2
@@ -64,6 +79,8 @@ angular.module('libshareApp')
       ,devolutionDate: '05/01/2019'
       ,observation: ''
       ,statusSharing: 'P'
+      ,sharingType: 'C'
+      ,sharingItem: 0
       },
       {
         id: 3
@@ -72,6 +89,8 @@ angular.module('libshareApp')
       ,devolutionDate: '23/12/2018'
       ,observation: ''
       ,statusSharing: 'P'
+      ,sharingType: 'C'
+      ,sharingItem: 0
       },
       {
         id: 2
@@ -80,6 +99,8 @@ angular.module('libshareApp')
       ,devolutionDate: '22/12/2018'
       ,observation: ''
       ,statusSharing: 'P'
+      ,sharingType: 'C'
+      ,sharingItem: 0
       }
     ];
 
@@ -142,24 +163,83 @@ angular.module('libshareApp')
             //   return DateUtils.formatDate(params.data.schedulingDate);
             // }
           },
-          { headerName: "Observação", field: "observation" , width: 265},
+          { headerName: "Observação Emprestador", field: "observation" , width: 265},
           { headerName: "Status item", field: "statusSharingPresentation", width: 150 },
-          { headerName: "Cod. Status Item", field: "statusSharing", width: 0 }
+          // { headerName: "Cod. Status Item", field: "statusSharing", width: 0 },
+          { headerName: "Tipo", field: "sharingType" },
+          { headerName: "Vlr. Item", field: "sharingItemValue"}
         ];
       }
     }
 
     function findSharing() {
-      self.gridOptions.api.setRowData(self.sharing);
-      buildSharingItem();
-      //self.gridOptionsItens.api.setRowData(buildSharingItem());
+      RestSrv.blockRequest("Consultando compartilhamentos...");
+      
+      // self.gridOptions.api.setRowData(self.sharing);
+      // buildSharingItem();
+      var params = buildParams();
+
+      //Apesar de estar como edit é uma requisição de consulta
+      RestSrv.edit(URLS_SERVICES.SHARING_PORTAL_GET_SHARING, params, function(response){
+        if (!StringUtils.isEmpty(response)){
+          self.sharingEntity = response.sharingEntity;
+          self.gridOptions.api.setRowData(sharingEntity);
+
+          self.sharingItens = response.sharingItens;
+          self.gridOptionsItens.api.setRowData(buildSharingItem(self.sharingItens));
+        }
+
+        RestSrv.unblockRequest();
+      });
+
+      //self.gridOptionsItens.api.setRowData(buildSharingItem(self.sharingItem));
     }
 
-    function buildSharingItem() {
+    function buildParams(){
+      var params = {
+        codUsu: undefined
+        ,codUsuLogged : undefined
+        ,dtCompIni : undefined
+        ,dtCompFim : undefined
+        ,dtDevIni : undefined
+        ,dtDevFim : undefined
+        ,statusBook : undefined
+        ,sharingWithMe : undefined
+      };
+
+      if (!StringUtils.isEmpty(self.codUsuLogged)) {
+        params.codUsuLogged = self.codUsuLogged;
+      }
+      if (!StringUtils.isEmpty(self.codUsuDestiny)) {
+        params.codUsu = self.codUsuDestiny;
+      }
+      if (!StringUtils.isEmpty(self.dtDevolutionIni)) {
+        params.dtDevIni = self.dtDevolutionIni;
+      }
+      if (!StringUtils.isEmpty(self.dtDevolutionFin)) {
+        params.dtDevFim = self.dtDevolutionFin;
+      }
+      if (!StringUtils.isEmpty(self.dtCompIni)) {
+        params.dtCompIni = self.dtCompIni;
+      }
+      if (!StringUtils.isEmpty(self.dtCompFim)) {
+        params.dtCompFim = self.dtCompFim;
+      }
+      if (!StringUtils.isEmpty()) {
+        params.statusBook = self.codUsuDestiny;
+      }
+      if (!StringUtils.isEmpty()) {
+        params.sharingWithMe = self.sharingWyithMe;
+      }
+
+      return params;
+    }
+    function buildSharingItem(itens) {
       self.gridBuildOptionItem = [];
-      ArrayUtils.forEach(self.sharingItem, function(item, index, arr){
+      ArrayUtils.forEach(itens, function(item, index, arr){
         var arrItemCopy = angular.copy(item);
-        arrItemCopy.statusSharingPresentation = ConverterStatusSrv.converterSiglaToDescStatusItemSharing(arrItemCopy.statusSharing)
+        arrItemCopy.statusSharingPresentation = ConverterStatusSrv.converterSiglaToDescStatusItemSharing(arrItemCopy.statusSharing);
+        arrItemCopy.sharingType = ConverterStatusSrv.converterSiglaToDescTypeItemSharing(arrItemCopy.sharingType);
         self.gridBuildOptionItem.push(arrItemCopy);
       });
 
