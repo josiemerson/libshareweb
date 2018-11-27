@@ -2,7 +2,7 @@
 
 angular.module('libshareApp')
   .controller('SharingPortalCtrl', 
-  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils, MsgUtils) {
+  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils, MsgUtils, $localStorage) {
     var self = this;
 
     self.showFilter = true;
@@ -47,17 +47,21 @@ angular.module('libshareApp')
         self.userDetails = $rootScope.authDetails.user;
         self.codUsuLogged = self.userDetails.id;
 
-        // if ($routeParams.id) {
-          //   findyPet(base64.decode($routeParams.id));
-          // }
+        var codUsuAddSharing = $localStorage.codUserAddSharing;
+        
+        if (!StringUtils.isEmpty(codUsuAddSharing)) {
+          self.codUsuDestiny = codUsuAddSharing;
+          self.sharingWithMe = 'C';
+          findSharing();
+        }
   
-           $timeout(function () {
-             self.gridOptions.api.setRowData(undefined);
-           }, 500);
+        $timeout(function () {
+          self.gridOptions.api.setRowData(undefined);
+        }, 500);
 
-           $timeout(function () {
-             self.gridOptionsItens.api.setRowData(undefined);
-           }, 500);
+        $timeout(function () {
+          self.gridOptionsItens.api.setRowData(undefined);
+        }, 500);
       }
     }
 
@@ -198,7 +202,9 @@ angular.module('libshareApp')
           buildSharingItem(self.sharingItens)
           self.gridOptionsItens.api.setRowData(null);
         } else {
-          MsgUtils.showAlert("Usuário não possuí compartilhamentos.")
+          self.gridOptions.api.setRowData(null);
+          self.gridOptionsItens.api.setRowData(null);
+          MsgUtils.showAlert("Não foram encontrados compartilhamentos.")
         }
 
         RestSrv.unblockRequest();

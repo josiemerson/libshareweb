@@ -9,9 +9,9 @@ angular
 	'BOOKS' : '/books/'
 })
 .controller('MapBooksCtrl', ['$scope', 'RestSrv', 'Transporter', 'ArrayUtils', 'CategoriesSrv', 'StringUtils', 'ngNotify', 'URL_IMAGE', 
-'$location', '$window', '$rootScope', '$localStorage','LoginLogoutSrv',
+'$location', '$window', '$rootScope', '$localStorage','LoginLogoutSrv', 'MsgUtils',
 function( $scope,RestSrv,Transporter, ArrayUtils, CategoriesSrv, StringUtils, ngNotify, URL_IMAGE, 
-	$location, $window, $rootScope, $localStorage, LoginLogoutSrv) {
+	$location, $window, $rootScope, $localStorage, LoginLogoutSrv, MsgUtils) {
 		var self = this;
 		// $window.localStorage.setItem('my-storage', val);
 
@@ -134,12 +134,12 @@ function( $scope,RestSrv,Transporter, ArrayUtils, CategoriesSrv, StringUtils, ng
 
 				CategoriesSrv.findProfileByCategoriesWithoutUserLogged	(params, function(dataResponse){
 
-					if (dataResponse.hasOwnProperty('status') && dataResponse.status == '404') {
+					if (StringUtils.isEmpty(dataResponse)) {
 
-						treatMarkes(dataResponse.data, map);
+						// treatMarkes(dataResponse.data, map);
 
-						var msg = 'Error: Categoria não encontrada, apresentaremos todas as categorias.';
-						ngNotify.set(msg, 'error');
+						var msg = 'Não foram encontrados usuários com livros disponíveis nesta categoria.';
+						MsgUtils.showAlert(msg);
 					} else {
 						
 						treatMarkes(dataResponse, map);

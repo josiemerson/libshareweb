@@ -2,9 +2,9 @@
 
 angular.module('libshareApp')
   .controller('BookCaseCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusSrv',
-    'ngNotify', '$window', '$rootScope', 'DateUtils','MsgUtils', 'ConverterBookSrv', 'LoginLogoutSrv', '$location',
+    'ngNotify', '$window', '$rootScope', 'DateUtils','MsgUtils', 'ConverterBookSrv', 'LoginLogoutSrv', '$location', '$localStorage',
   function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusSrv, ngNotify,$window, $rootScope, 
-    DateUtils, MsgUtils, ConverterBookSrv, LoginLogoutSrv, $location) {
+    DateUtils, MsgUtils, ConverterBookSrv, LoginLogoutSrv, $location, $localStorage) {
     var self = this;
     
     self.addCeste = addCeste;
@@ -259,24 +259,14 @@ angular.module('libshareApp')
         RestSrv.blockRequest('Enviando solicitação');
         RestSrv.add(URLS_SERVICES.SHARING_PORTAL_NEW, sharing, function(response){
           RestSrv.unblockRequest();
+          $localStorage.codUserAddSharing = self.profile.codUsu;
+          $rootScope.codUserAddSharing = self.profile.codUsu;
 
           $location.url("/sharingportal").replace();
           //utilizado para informar ao scope que houve alterações que necessitam de um refresh
           $scope.$apply();
         })
 
-        // $.blockUI({
-        //   message: 'Enviando solicitação'
-        //   ,css: { 
-        //     border: 'none', 
-        //     padding: '15px', 
-        //     backgroundColor: '#000', 
-        //     '-webkit-border-radius': '10px', 
-        //     '-moz-border-radius': '10px', 
-        //     opacity: .5, 
-        //     color: '#fff' 
-        // } }); 
-        // setTimeout($.unblockUI, 2000); 
       }              
     }
 
