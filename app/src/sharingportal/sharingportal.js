@@ -2,7 +2,7 @@
 
 angular.module('libshareApp')
   .controller('SharingPortalCtrl', 
-  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils) {
+  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils, MsgUtils) {
     var self = this;
 
     self.showFilter = true;
@@ -141,7 +141,7 @@ angular.module('libshareApp')
           { headerName: "Cód. Emprestador", field: "userOrigin.profile.codUsu", width: 150, cellStyle: { 'text-align': 'right' } },
           { headerName: "Emprestador", field: "userOrigin.profile.name" },
           { headerName: "Cód. Solicitante", field: "userDestiny.profile.codUsu", width: 150, cellStyle: { 'text-align': 'right' } },
-          { headerName: "Solicitante", field: "nameUserDestiny.profile.name" },
+          { headerName: "Solicitante", field: "userDestiny.profile.name" },
           {
             // headerName: "Data Compartilhamento", field: "sharingDateAndHour", valueGetter: function chainValueGetter(params) {
             //   return DateUtils.formatDate(params.data.sharingDateAndHour);
@@ -197,6 +197,8 @@ angular.module('libshareApp')
 
           buildSharingItem(self.sharingItens)
           self.gridOptionsItens.api.setRowData(null);
+        } else {
+          MsgUtils.showAlert("Usuário não possuí compartilhamentos.")
         }
 
         RestSrv.unblockRequest();

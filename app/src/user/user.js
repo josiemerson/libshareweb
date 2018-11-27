@@ -53,17 +53,18 @@ angular.module('libshareApp')
             self.profile = data.profile;
             self.user = data;
 
-            // self.profile = addInfoCountry(self.profile);
-            addPropIfNotExists(self.profile, 'codUsu', userDetails.id);
-            self.profile.allowShowPhone = self.profile.allowShowPhone == 'S';
-
-            if (StringUtils.isEmpty(self.profile.pathFoto)){
+            if (StringUtils.isEmpty(self.profile)){
+              self.profile = {};
+              self.profile = addInfoCountry(self.profile);
+              addPropIfNotExists(self.profile, 'codUsu', userDetails.id);
               self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
             } else {
+              self.profile.allowShowPhone = self.profile.allowShowPhone == 'S';
+              
               self.imageProfile = ImageSrv.buildUrlImage(userDetails.id,self.profile.pathFoto, undefined);
-            }
 
-            convertToDate(self.profile);
+              convertToDate(self.profile);
+            }
           }
         });
       }
@@ -120,8 +121,8 @@ angular.module('libshareApp')
     }
 
     function treatmentImgSave(img){
-      if (img.indexOf('112312s3ko13a123xomnajcnhasbookLibshare.png') > -1) {
-         img = undefined;
+      if (img.indexOf('112312s3ko13a123xomnajcnhasuser.png') > -1) {
+         img = '112312s3ko13a123xomnajcnhasuser.png';
       } else if (img.indexOf('base64') > -1){
         img = self.fileSelected.filename + "_filename@"+ img;
       }

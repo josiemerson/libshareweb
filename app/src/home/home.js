@@ -23,7 +23,7 @@ angular
     ,'USER_BY_ID': PRIVATE + '/user/'
     ,'USER_NEW': PRIVATE + '/user/newUser'
     ,'SHARING_PORTAL': PRIVATE + '/sharingportal/'
-    ,'SHARING_PORTAL_NEW': PRIVATE + '/sharingportal/newSharing'
+    ,'SHARING_PORTAL_NEW': PRIVATE + '/sharingportal/newSharing/'
     ,'SHARING_PORTAL_GET_SHARING': PRIVATE + '/sharingportal/getSharing/'
     ,'FRIENDS': PRIVATE + '/friends/'
     ,'FRIENDS_STATUS': PRIVATE + '/friends/statusFriend/'

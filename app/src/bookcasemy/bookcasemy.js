@@ -96,7 +96,6 @@ angular.module('libshareApp')
           }
         });
     }
-//// Começa aqui
 
     function loadAllBooksByUser() {
       self.userDetails = $rootScope.authDetails;
@@ -115,8 +114,8 @@ angular.module('libshareApp')
 
             self.books = bookTreatment(response);
 
-            RestSrv.unblockRequest();
           }
+          RestSrv.unblockRequest();
         });
       } else {
         MsgUtils.showError('Houve um erro ao carregar os dados do usuário, entre em contato com a LibShare.');

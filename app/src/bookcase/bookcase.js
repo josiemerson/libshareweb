@@ -2,9 +2,9 @@
 
 angular.module('libshareApp')
   .controller('BookCaseCtrl', ['Transporter', 'StringUtils', 'ConverterGenreSrv', 'ArrayUtils', 'RestSrv', 'ImageSrv', 'URLS_SERVICES', 'ConverterStatusSrv',
-    'ngNotify', '$window', '$rootScope', 'DateUtils','MsgUtils', 'ConverterBookSrv', 'LoginLogoutSrv',
+    'ngNotify', '$window', '$rootScope', 'DateUtils','MsgUtils', 'ConverterBookSrv', 'LoginLogoutSrv', '$location',
   function(Transporter, StringUtils, ConverterGenreSrv, ArrayUtils, RestSrv, ImageSrv, URLS_SERVICES, ConverterStatusSrv, ngNotify,$window, $rootScope, 
-    DateUtils, MsgUtils, ConverterBookSrv, LoginLogoutSrv) {
+    DateUtils, MsgUtils, ConverterBookSrv, LoginLogoutSrv, $location) {
     var self = this;
     
     self.addCeste = addCeste;
@@ -209,6 +209,11 @@ angular.module('libshareApp')
           MsgUtils.showError('É necessário preencher todos os campos Dt. Devolução.');
           continueSolicitation = false;
           break;
+        } else if (item.devolutionDate <= DateUtils.getToday()){
+          MsgUtils.showError('Todas as datas devem ser maior que hoje.');
+          continueSolicitation = false;
+          break;
+
         }
       };
 
@@ -217,12 +222,9 @@ angular.module('libshareApp')
         var sharing= {
           userOrigin: self.userDetails.id,
           userDestiny: self.profile.codUsu,
-          sharingItem: [],// Valor do compartilhamento
-          sharingDateAndHour: '', //data e hora do compartilhamento
-          sharingValue: ''
-          // sharingType: '',//Tipo de compartilhamento Venda ou compra
-          // devolutionDate: '',// Data da devolução
-          // limitDate: '',//data limite para devolução
+          sharingItens: [],
+          sharingDateAndHour: '', 
+          sharingValue: 0
         };
   
         var sumSharingValue = 0;
@@ -235,17 +237,20 @@ angular.module('libshareApp')
 
           
           var sharingItem = {
-            sharingType: item.sharingType,//Tipo de compartilhamento Venda ou compra
-            devolutionDate: item.devolutionDate,//Data da devolução
-            sharingItemValue: item.sharingItemValue,//Valor do item no caso o livro
-            book: item
+            sharing: 0
+            ,sharingType: item.sharingType//Tipo de compartilhamento Venda ou compra
+            ,devolutionDate: item.devolutionDate//Data da devolução
+            ,sharingItemValue: (StringUtils.isEmpty(item.sharingItemValue) ? 0 : item.sharingItemValue) //Valor do item no caso o livro
+            ,observation: ''
+            ,statusSharing: 'P'
+            ,book: item.id
           } ; 
 
-          removeProperties(sharingItem.book, ["genrePresentation", "statusBookcase", "bookStatusPresentation", "disabledBookCase", "devolutionDate", "sharingTypePresentation"]);
+          // removeProperties(sharingItem.book, ["genrePresentation", "statusBookcase", "bookStatusPresentation", "disabledBookCase", "devolutionDate", "sharingTypePresentation"]);
   
             var sharingItemCopy = angular.copy(sharingItem);
             //Fazemos isso para que o item referente ao livro não seja alterado pelo próximo sharingItem;
-            sharing.sharingItem.push(sharingItemCopy);
+            sharing.sharingItens.push(sharingItemCopy);
         });
   
         sharing.sharingValue = sumSharingValue;
@@ -253,7 +258,11 @@ angular.module('libshareApp')
         //utilizar no callback da chamada de serviço
         RestSrv.blockRequest('Enviando solicitação');
         RestSrv.add(URLS_SERVICES.SHARING_PORTAL_NEW, sharing, function(response){
-            RestSrv.unblockRequest();
+          RestSrv.unblockRequest();
+
+          $location.url("/sharingportal").replace();
+          //utilizado para informar ao scope que houve alterações que necessitam de um refresh
+          $scope.$apply();
         })
 
         // $.blockUI({
@@ -291,7 +300,7 @@ angular.module('libshareApp')
       var user = self.userDetails.id;
       var friend = self.profile.codUsu;
 
-      var urlFriends = URLS_SERVICES.FRIENDS_STATUS + "/" + user + "/" + friend; 
+      var urlFriends = URLS_SERVICES.FRIENDS_STATUS + user + "/" + friend; 
       RestSrv.find(urlFriends, function(response){
         if (StringUtils.isEmpty(response)) {
 

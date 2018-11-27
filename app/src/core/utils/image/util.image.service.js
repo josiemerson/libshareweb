@@ -10,6 +10,8 @@ angular.module('libshareApp')
       if (!StringUtils.isEmpty(pathFoto)) {
         if (pathFoto === '112312s3ko13a123xomnajcnhasbookLibshare.png'){
           urlImage = urlImage + URL_IMAGE.USERS + '112312s3ko13a123xomnajcnhasbookLibshare.png';
+        } else if (pathFoto === '112312s3ko13a123xomnajcnhasuser.png'){
+          urlImage = urlImage + URL_IMAGE.USERS + '112312s3ko13a123xomnajcnhasuser.png';
         } else if (!StringUtils.isEmpty(idBook)) {
 
           urlImage =  urlImage + URL_IMAGE.USERS_ID + idUser + URL_IMAGE.BOOKS + pathFoto;
