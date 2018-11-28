@@ -6,8 +6,14 @@ angular.module('libshareApp').controller('SharingResponseCtrl', function ($uibMo
       ,{key: 'N', value: 'Negar'}
     ];
 
+    self.showValueItemSharing = data.showValueItemSharing;
+    self.valueItemSharing = data.valueItemSharing;
+
     self.ok = function () {
-      if (StringUtils.isEmpty(self.statusItemSharing)) {
+      if (self.showValueItemSharing && !StringUtils.isEmpty(self.valueItemSharing) && self.valueItemSharing <= 0){
+
+        MsgUtils.showError("Valor deve ser maior que zero.");
+      } else if (StringUtils.isEmpty(self.statusItemSharing)) {
 
         MsgUtils.showError("Solicitação deve ser respondida através do campo 'Status compartilhamento' para que a mesma seja salva!");
       } else {
@@ -25,7 +31,7 @@ angular.module('libshareApp').controller('SharingResponseCtrl', function ($uibMo
           ,sharingItem: data.codItemSharing
           ,sharingType: undefined//Tipo de compartilhamento Venda ou compra
           ,devolutionDate: undefined//Data da devolução
-          ,sharingItemValue: undefined
+          ,sharingItemValue: self.valueItemSharing
           ,observation: self.observation
           ,statusSharing: self.statusItemSharing
           ,book: undefined          

@@ -40,10 +40,14 @@ angular.module('libshareApp')
     }
 
     this.converterDescToSiglaTypeItemSharing = function(description) {
-        return ArrayUtils.find(TYPE_SHARING, function(item, index, arr){
-            if (item === description){
-              return true;
+        var sigleType;
+        
+        for (var key in TYPE_SHARING) {
+            if (TYPE_SHARING[key] === description) {
+                sigleType = key;
             }
-        });
+        }
+
+        return sigleType;
     }
   }]);

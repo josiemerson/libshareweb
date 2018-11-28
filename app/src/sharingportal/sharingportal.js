@@ -39,6 +39,7 @@ angular.module('libshareApp')
     self.sharingWithMe = 'A';
 
     self.findSharing = findSharing;
+    self.clickGetUser = clickGetUser;
 
     var arrSharingItensSelected = [];
     var arrSharingItensOld = [];
@@ -158,8 +159,8 @@ angular.module('libshareApp')
             ,valueGetter: function chainValueGetter(params) {
               return DateUtils.formatDate(params.data.sharingDateAndHour);
             }
-          },
-          { headerName: "Valor Compartilhamento", field: "sharingValue" }
+          }
+          // ,{ headerName: "Valor Compartilhamento", field: "sharingValue" }
         ];
       }
 
@@ -178,10 +179,18 @@ angular.module('libshareApp')
           { headerName: "Status item", field: "statusSharingPresentation", width: 150 },
           // { headerName: "Cod. Status Item", field: "statusSharing", width: 0 },
           { headerName: "Tipo", field: "sharingType" },
-          { headerName: "Vlr. Item", field: "sharingItemValue"}
+          { headerName: "Vlr. Item", valueFormatter: currencyFormatter ,field: "sharingItemValue"}
         ];
       }
     }
+
+  function currencyFormatter(params) {
+      return 'R$ ' + params.value;
+  }
+
+  function formatNumber(number) {
+      return Math.floor(number).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
 
     function findSharing() {
       RestSrv.blockRequest("Consultando compartilhamentos...");
@@ -312,6 +321,8 @@ angular.module('libshareApp')
             ,data : {
               codSharing: self.sharingMaster.id
               ,codItemSharing: selectedRows.id
+              ,showValueItemSharing: ConverterStatusSrv.converterDescToSiglaTypeItemSharing(selectedRows.sharingType) != 'C'
+              ,valueItemSharing: selectedRows.sharingItemValue
             }
           }
 
@@ -367,5 +378,25 @@ angular.module('libshareApp')
 
   function onRowSelectedItem(event) {
     // window.alert("row " + event.node.data.athlete + " selected = " + event.node.selected);
-}
+  }
+
+  function clickGetUser(){
+      var params = {
+        templateUrl: '../src/directives/lib-pesquisa-user/lib-pesquisa-user.tpl.html'
+        ,controller: 'PesquisaUserCtrl'
+        ,data : {
+          codUsuLogged: self.codUsuLogged
+        }
+      }
+
+      LibPopUpSrv.open(undefined, undefined, params).then(function(response){
+        self.codUsuDestiny = response.codUsu;
+
+        findSharing();
+      }, function(){
+  //cancel
+      });
+  }
+
+
   });
