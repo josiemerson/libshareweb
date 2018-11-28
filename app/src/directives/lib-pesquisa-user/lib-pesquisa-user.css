@@ -1,0 +1,6 @@
+.clickCell :hover  {
+  background-color: #e1d2d2  !important;
+}
+.clickCell {
+  background-color: white  !important;
+}

@@ -1,15 +1,14 @@
 <div class="modal-header color-default">
-  <h3 class="modal-title" id="modal-title">Buscar de Usuário</h3>
+  <h3 class="modal-title" id="modal-title">Lista de Usuário</h3>
 </div>
 <div class="modal-body" id="modal-body">
   <div class="vboxLib" ng-show="ctrl.showValueItemSharing">
     <label class="color-default">Código Usuário<span class="asterisko"> *</span></label>
     <input type="text" placeholder="Valor Compartilhamento" class="form-control" ng-model="ctrl.codUsu" ui-money-mask/>
   </div>
-  <div id="gridsLibSharing" class="vboxLib color-default" style="width: 100%">
-		<span>Usuários</span>
+  <div id="gridsUserSharing" class="vboxLib color-default" style="width: 100%">
     <ul>
-			<li ng-repeat="user in ctrl.listUsersResponse |  filter:ctrl.codUsu | orderBy: 'name'">
+			<li class="clickCell" style="list-style-type: none;" ng-repeat="user in ctrl.listUsersResponse |  filter:ctrl.codUsu | orderBy: 'name'">
 				<div class="hboxLib" style="margin-top:5px;" ng-dblclick="ctrl.doubleclikedUser(user)" ng-click="ctrl.clikedUser(user)">
             <span class="color-default"><span class="spanBoldbookcasemy color-default" >Código: </span>{{user.codUsu}}</span>
 						<span class="color-default" style="margin-left: 5px;"><span class="spanBoldbookcasemy color-default" >Nome: </span>{{user.name}}</span>
