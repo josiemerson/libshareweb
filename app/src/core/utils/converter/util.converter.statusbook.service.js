@@ -2,7 +2,7 @@
 
 angular.module('libshareApp')
   .constant('BOOK_STATUS', {
-     'A': 'Alugado', 'D' : 'Disponível', 'E': 'Emprestado', 'V': 'Vendido', 'I': 'Indisponível'
+     'A': 'Alugado', 'D' : 'Disponível', 'E': 'Emprestado', 'V': 'Vendido', 'I': 'Indisponível', 'P': 'Pendente de Aprovação'
   })
   .constant('ITEM_SHARING_STATUS', {
      'A': 'Aprovado', 'N' : 'Negado', 'P': 'Pendente'

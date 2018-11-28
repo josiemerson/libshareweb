@@ -134,7 +134,7 @@ angular.module('libshareApp')
       var profile = self.profile;
       var user = self.user;
 
-      var fieldsProfile = ['name','lastName', 'dateBirth', 'cep', 'address', 'number', 'neighborhood', 'region', 'telephone'];
+      var fieldsProfile = ['name','lastName', 'dateBirth', 'cep', 'address', 'number', 'neighborhood', 'telephone'];
       var fieldsUser = ['password'];
 
       ArrayUtils.forEach(fieldsProfile, function(item, index){

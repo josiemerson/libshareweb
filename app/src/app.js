@@ -4,7 +4,7 @@ var BASE_URL = 'http://localhost:8080/api';
 
 agGrid.initialiseAgGridWithAngular1(angular);
 
-angular.module('libshareApp', ['checklist-model', 'agGrid', 'ngNotify', 'ngRoute', 'ngCookies', 'ngStorage', 'ngAnimate','ngSanitize','ui.bootstrap', 'naif.base64'])
+angular.module('libshareApp', ['checklist-model', 'agGrid', 'ngNotify', 'ngRoute', 'ngCookies', 'ngStorage', 'ngAnimate','ngSanitize','ui.bootstrap', 'naif.base64', 'ui.utils.masks'])
   .constant('SERVICE_PATH', {
     'ROOT_PATH': BASE_URL,
     'PUBLIC_PATH': BASE_URL + '/public',

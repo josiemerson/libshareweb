@@ -34,6 +34,7 @@ angular.module('libshareApp')
         { key: 'D', value: 'Disponível'},
         { key: 'E', value: 'Emprestado'},
         { key: 'V', value: 'Vendido'},
+        { key: 'P', value: 'Pendente de Aprovação'},
     ];
     self.bookGenreOptions = [
         { key: 'A', value: 'Administração'},

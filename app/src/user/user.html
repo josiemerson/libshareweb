@@ -30,11 +30,6 @@
                   <input type="date" placeholder="Dt. Nascimento" class="form-control" ng-model="ctrl.profile.dateBirth" required/>
                 </div>
                 
-                <div class="vboxLibUser">
-                  <label class="color-default">Cep<span class="asterisko"> *</span></label>
-                  <input type="text" placeholder="Cep" class="form-control"  ng-blur="ctrl.getLoadAddressPerCep()" ng-model="ctrl.profile.cep" maxlength="255" required/>
-                </div>
-                
                 <div class="hboxLib">
                   <div class="vboxLibUser addressInputUser">
                     <label class="color-default">Endereço<span class="asterisko"> *</span></label>
@@ -58,12 +53,17 @@
                     <input type="text" placeholder="Bairro" class="form-control" ng-model="ctrl.profile.neighborhood" maxlength="255" required/>
                   </div>
                   <div class="vboxLibUser nroInputUser">
+                    <label class="color-default">Cep<span class="asterisko"> *</span></label>
+                    <input type="text" placeholder="Cep" class="form-control"  ng-blur="ctrl.getLoadAddressPerCep()" ng-model="ctrl.profile.cep" maxlength="255" required ui-br-cep-mask/>
+                  </div>
+
+                  <!-- <div class="vboxLibUser nroInputUser">
                       <label class="color-default">Região</label>
                       <select name="singleSelect" class="form-control color-default" id="singleSelectRegion" ng-model="ctrl.profile.region">
                         <option value="">---Please select---</option>
-                        <option ng-Repeat="data in ctrl.regionCity" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+                        <option ng-Repeat="data in ctrl.regionCity" value="{{data.key}}">{{data.value}}</option> 
                       </select>
-                    </div>
+                    </div -->
                 </div>
             <!-- </div> -->
 
@@ -87,7 +87,7 @@
         
                 <div class="vboxLibUser">
                   <label class="color-default">Fone<span class="asterisko"> *</span></label>
-                  <input type="tel" placeholder="Telefone" class="form-control" ng-model="ctrl.profile.telephone" maxlength="255" required/>
+                  <input type="tel" placeholder="Telefone" class="form-control" ng-model="ctrl.profile.telephone" ui-br-phone-number maxlength="255" required/>
                 </div>
         
                 <div class="vboxLibUser">
