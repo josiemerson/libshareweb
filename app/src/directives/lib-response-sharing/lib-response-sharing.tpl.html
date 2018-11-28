@@ -1,0 +1,20 @@
+<div class="modal-header color-default">
+  <h3 class="modal-title" id="modal-title">Responder Solicitação</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <div class="form-group">
+    <label for="comment" class="color-default">Observação:</label>
+    <textarea class="form-control" rows="5" id="comment" ng-model="ctrl.observation"></textarea>
+  </div>
+  <div class="vboxLib">
+    <label class="color-default">Status compartilhamento</label>
+    <select name="statusSharingWithMeSelect" class="form-control color-default fontsSharingPortal" id="statusSharingResponse" ng-model="ctrl.statusItemSharing">
+        <option ng-Repeat="data in ctrl.optionStatusSharing" class="color-default fontsSharingPortal" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
+    </select>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">Salvar</button>
+  <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+</div>
+

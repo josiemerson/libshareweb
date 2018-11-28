@@ -2,7 +2,7 @@
 
 angular.module('libshareApp')
   .controller('SharingPortalCtrl', 
-  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils, MsgUtils, $localStorage) {
+  function($scope, RestSrv, URLS_SERVICES, DateUtils,$rootScope, $timeout, LoginLogoutSrv, ConverterStatusSrv, ArrayUtils, StringUtils, MsgUtils, $localStorage,LibPopUpSrv) {
     var self = this;
 
     self.showFilter = true;
@@ -18,6 +18,7 @@ angular.module('libshareApp')
       rowData: null,
       onSelectionChanged: onSelectionChangedItem,
       onRowSelected: onRowSelectedItem,
+      onRowDoubleClicked: doubleClickItens
     };
 
     self.statusBookOptions = [
@@ -285,9 +286,39 @@ angular.module('libshareApp')
       // });
     }
 
+    function doubleClickItens(row) {
+        responseSharing(row.data);
+    }
+
+    function responseSharing(dataItens) {
+      var selectedRows = dataItens;
+
+      if (selectedRows && selectedRows.length > 1){
+        MsgUtils.showAlert("É necessário selecionar apenas um item do compartilhamento.");
+      } else {
+
+        var params = {
+          templateUrl: '../src/directives/lib-response-sharing/lib-response-sharing.tpl.html'
+          ,controller: 'SharingResponseCtrl'
+          ,data : {
+            codSharing: self.sharingMaster.id
+            ,codItemSharing: selectedRows.id
+          }
+        }
+
+        LibPopUpSrv.open(undefined, undefined, params).then(function(response){
+          findSharing();
+        }, function(){
+  //cancel
+        });
+      }
+    }
+
     function onRowSelected(event) {
 
       if (event ) {
+        self.sharingMaster = event.node.data;
+
         var firsSelection = (arrSharingItensSelected.length == 0 && arrSharingItensOld.length == 0);
         var otherSelection = (arrSharingItensSelected.length > 0 && arrSharingItensOld.length == 0);
         if (firsSelection || otherSelection){

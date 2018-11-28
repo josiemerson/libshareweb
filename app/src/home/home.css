@@ -31,6 +31,10 @@ html {
 align-items: stretch;
 }
 
+.asterisko{
+    color:red;
+}
+
 .color-default{
     color: rgb(119, 119, 119);
 }

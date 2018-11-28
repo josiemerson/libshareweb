@@ -123,7 +123,7 @@ angular.module('libshareApp')
     }
 
     function removeBook(book){
-      book.releaseYear = DateUtils.buildDateFromTime(book.releaseYear);
+      book.releaseYear = DateUtils.stringToDate(book.releaseYear);
       RestSrv.delete(URLS_SERVICES.BOOKS_DELETE, book, function(response){
         self.books.splice(self.books.indexOf(book), 1);
       });
@@ -139,7 +139,7 @@ angular.module('libshareApp')
 
     function editBook(book){
       self.bookOldLastChange = angular.copy(book);
-      book.releaseYear = DateUtils.buildDateFromTime(book.releaseYear);
+      book.releaseYear = DateUtils.stringToDate(book.releaseYear);
       // book.releaseYear = new Date(book.releaseYear);
       self.bookAddEdit = book;
       self.newOrEditBook = true;
@@ -195,44 +195,77 @@ angular.module('libshareApp')
     function saveBook(book){
       addPropIfNotExists(book, 'bookOwner', self.codUsu);
       var copyBook;
-      if (self.addBookMode) {
-        //../../img/users/book.png
-        copyBook = angular.copy(book);
-        var filename = "";
-        if (self.fileSelected) {
-          filename = self.fileSelected.filename;
-        }
 
-        copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
-        //adicionar book
-        RestSrv.add(URLS_SERVICES.BOOKS_NEW, copyBook, function(response){
-          book.id = response.id;
-          book.releaseYear = convertLancamento(book.releaseYear);
-          self.books.push(book);
-          self.newOrEditBook = false;
-        });
+      if (validatingBeforeSave()) {
+          if (self.addBookMode) {
+            //../../img/users/book.png
+            copyBook = angular.copy(book);
+            var filename = "";
+            if (self.fileSelected) {
+              filename = self.fileSelected.filename;
+            }
+    
+            copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
+            //adicionar book
+            RestSrv.add(URLS_SERVICES.BOOKS_NEW, copyBook, function(response){
+              book.id = response.id;
+              book.releaseYear = convertLancamento(book.releaseYear);
+              self.books.push(book);
+              self.newOrEditBook = false;
+            });
+          } else {
+            copyBook = angular.copy(book);
+    
+            var filename = "";
+            if (self.fileSelected) {
+              filename = self.fileSelected.filename;
+            }
+    
+            copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
+            //editbook
+            RestSrv.edit(URLS_SERVICES.BOOKS_EDIT, copyBook, function(response){
+              self.newOrEditBook = false;
+              book.releaseYear = convertLancamento(book.releaseYear);
+              self.bookOldLastChange = undefined;
+            });
+          }
       } else {
-        copyBook = angular.copy(book);
-
-        var filename = "";
-        if (self.fileSelected) {
-          filename = self.fileSelected.filename;
-        }
-
-        copyBook.pathFoto = ImageSrv.treatmentSaveImgBook(filename, self.codUsu, copyBook.pathFoto);
-        //editbook
-        RestSrv.edit(URLS_SERVICES.BOOKS_EDIT, copyBook, function(response){
-          self.newOrEditBook = false;
-          book.releaseYear = convertLancamento(book.releaseYear);
-          self.bookOldLastChange = undefined;
-        });
+        MsgUtils.showError("Todos os campos * são obrigatórios");
       }
+    }
+
+    function validatingBeforeSave(){
+      var continuar = true;
+      var book = self.bookAddEdit;
+      var user = self.user;
+
+      var fieldsBook = ['name','author', 'publishingCompany', 'releaseYear', 'genre', 'bookStatus', 'sharingType'];
+
+      ArrayUtils.forEach(fieldsBook, function(item, index){
+        if (StringUtils.isEmpty(book[item])) {
+          continuar = false;
+          return false;
+        }
+      });
+
+      return continuar;
     }
   
     function cancelBook(){
+       ArrayUtils.forEach(self.books, function(item, index){
+            if (item.id == self.bookAddEdit.id) {
+              self.books[index] = self.bookOldLastChange;
+              return true;
+            }
+        });
+
+        //bookPojo.releaseYear = convertLancamento(self.bookAddEdit.releaseYear);
+        self.bookOldLastChange = undefined;
+      // });
+
+      self.newOrEditBook = false;
       self.bookAddEdit = {};
       self.addBookMode = false;
-      self.newOrEditBook = false;
     }
 
     
@@ -261,9 +294,9 @@ angular.module('libshareApp')
       self.bookAddEdit.genrePresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.genre);
     }
     function changeStatusBook() {
-      self.bookAddEdit.bookStatusPresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.bookStatus);
+      self.bookAddEdit.bookStatusPresentation = ConverterStatusSrv.converterSiglaToDescStatusBook(self.bookAddEdit.bookStatus);
     }
     function changeSharingType() {
-      self.bookAddEdit.sharingTypePresentation = ConverterGenreSrv.converterSiglaToDescGenre(self.bookAddEdit.sharingType);
+      self.bookAddEdit.sharingTypePresentation = ConverterGenreSrv.converterSiglaToDescTypeShare(self.bookAddEdit.sharingType);
     }
   }]);

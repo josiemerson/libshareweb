@@ -65,45 +65,45 @@
 			</div>
 			
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Titulo</label>
+				<label class="color-default">Titulo<span class="asterisko"> *</span></label>
 				<input type="text" class="form-control color-default" placeholder="Titulo" ng-model="ctrl.bookAddEdit.name"/>
 			</div>
 		
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Autor</label>
+				<label class="color-default">Autor<span class="asterisko"> *</span></label>
 				<input type="text" class="form-control color-default" placeholder="Autor" ng-model="ctrl.bookAddEdit.author"/>
 			</div>
 			
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Editora</label>
+				<label class="color-default">Editora<span class="asterisko"> *</span></label>
 				<input type="text" class="form-control color-default" placeholder="Editora" ng-model="ctrl.bookAddEdit.publishingCompany" required/>
 			</div>
 			
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Lançamento</label>
+				<label class="color-default">Lançamento<span class="asterisko"> *</span></label>
 				<input type="date" class="form-control color-default" placeholder="Lançamento" ng-model="ctrl.bookAddEdit.releaseYear" required/>
 			</div>
 			
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Genêro</label>
+				<label class="color-default">Genêro<span class="asterisko"> *</span></label>
 				<select name="singleSelect" class="form-control color-default" id="singleSelect" ng-model="ctrl.bookAddEdit.genre" ng-change="ctrl.changeGenero()">
-						<option value="" class="color-default">---Please select---</option> <!-- not selected / blank option -->
+						<option value="" class="color-default">---Selecione por favor---</option> <!-- not selected / blank option -->
 						<option ng-Repeat="data in ctrl.bookGenreOptions" class="color-default" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
 				</select>
 			</div>
 			
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Status</label>
+				<label class="color-default">Status<span class="asterisko"> *</span></label>
 				<select class="form-control color-default" ng-model="ctrl.bookAddEdit.bookStatus"  ng-change="ctrl.changeStatusBook()">
-					<option value="">---Please select---</option> <!-- not selected / blank option -->
+					<option value="">---Selecione por favor---</option> <!-- not selected / blank option -->
 					<option ng-Repeat="data in ctrl.bookStatusOptions" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
 				</select>
 			</div>
 
 			<div class="vboxLibBookcasemy">
-				<label class="color-default">Tipo</label>
+				<label class="color-default">Tipo<span class="asterisko"> *</span></label>
 				<select class="form-control color-default" ng-model="ctrl.bookAddEdit.sharingType" ng-change="ctrl.changeSharingType()">
-					<option value="">---Please select---</option> <!-- not selected / blank option -->
+					<option value="">---Selecione por favor---</option> <!-- not selected / blank option -->
 					<option ng-Repeat="data in ctrl.sharingTypeOptions" value="{{data.key}}">{{data.value}}</option> <!-- interpolation -->
 				</select>
 			</div>

@@ -11,12 +11,12 @@
         <!-- <div class="hboxLib"> -->
             <!-- <div class="vboxLib expandAll"> -->
                 <div class="vboxLibUser">
-                    <label class="color-default">Nome</label>
+                    <label class="color-default">Nome<span class="asterisko"> *</span></label>
                     <input type="text" placeholder="Nome" class="form-control" ng-model="ctrl.profile.name"/>
                 </div>
           
                 <div class="vboxLibUser">
-                  <label class="color-default">Sobrenome</label>
+                  <label class="color-default">Sobrenome<span class="asterisko"> *</span></label>
                   <input type="text" placeholder="Sobrenome" class="form-control" ng-model="ctrl.profile.lastName"/>
                 </div>
                 
@@ -26,23 +26,23 @@
                 </div>
                 
                 <div class="vboxLibUser">
-                  <label class="color-default">Dt. Nascimento</label>
+                  <label class="color-default">Dt. Nascimento<span class="asterisko"> *</span></label>
                   <input type="date" placeholder="Dt. Nascimento" class="form-control" ng-model="ctrl.profile.dateBirth" required/>
                 </div>
                 
                 <div class="vboxLibUser">
-                  <label class="color-default">Cep</label>
+                  <label class="color-default">Cep<span class="asterisko"> *</span></label>
                   <input type="text" placeholder="Cep" class="form-control"  ng-blur="ctrl.getLoadAddressPerCep()" ng-model="ctrl.profile.cep" maxlength="255" required/>
                 </div>
                 
                 <div class="hboxLib">
                   <div class="vboxLibUser addressInputUser">
-                    <label class="color-default">Endereço</label>
+                    <label class="color-default">Endereço<span class="asterisko"> *</span></label>
                     <input type="text" placeholder="Endereço" class="form-control" ng-model="ctrl.profile.address" maxlength="255" required/>
                   </div>
           
                   <div class="vboxLibUser nroInputUser">
-                    <label class="color-default">Nº</label>
+                    <label class="color-default">Nº<span class="asterisko"> *</span></label>
                     <input type="number" placeholder="Número" class="form-control" ng-model="ctrl.profile.number" maxlength="255" required/>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
       
                 <div class="hboxLib">
                   <div class="vboxLibUser addressInputUser">
-                    <label class="color-default">Bairro</label>
+                    <label class="color-default">Bairro<span class="asterisko"> *</span></label>
                     <input type="text" placeholder="Bairro" class="form-control" ng-model="ctrl.profile.neighborhood" maxlength="255" required/>
                   </div>
                   <div class="vboxLibUser nroInputUser">
@@ -86,19 +86,19 @@
                 </div>
         
                 <div class="vboxLibUser">
-                  <label class="color-default">Fone</label>
+                  <label class="color-default">Fone<span class="asterisko"> *</span></label>
                   <input type="tel" placeholder="Telefone" class="form-control" ng-model="ctrl.profile.telephone" maxlength="255" required/>
                 </div>
         
                 <div class="vboxLibUser">
-                  <label class="color-default">Password</label>
+                  <label class="color-default">Password<span class="asterisko"> *</span></label>
                   <input type="password" placeholder="Password" class="form-control" ng-model="ctrl.user.password" minlength="4" maxlength="30" required/>
                 </div>
                 <div class="checkbox">
                     <label class="color-default"><input type="checkbox"  ng-model="ctrl.profile.allowShowPhone" value="">Mostrar telefone</label>
                 </div>
                 <div class="checkbox">
-                    <label class="color-default"><input type="checkbox"  ng-model="ctrl.user.excluiruser" value="">Excluir conta</label>
+                    <label class="color-default"><input type="checkbox"  ng-model="ctrl.profile.active" value="">Conta ativa</label>
                   </div>
               <!-- </div> -->
         <!-- </div> -->

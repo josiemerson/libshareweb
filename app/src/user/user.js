@@ -2,9 +2,9 @@
 
 angular.module('libshareApp')
   .controller('UserCtrl', ['$scope', '$http', 'ngNotify', 'RestSrv', 'SERVICE_PATH', '$rootScope', '$location', 'StringUtils', 'ImageSrv', 'URLS_SERVICES'
-  ,'Memory','MsgHttpSrv', 'MsgUtils','LibPhotoSrv',
+  ,'Memory','MsgHttpSrv', 'MsgUtils','LibPhotoSrv', 'ArrayUtils',
     function($scope, $http, ngNotify, RestSrv, SERVICE_PATH, $rootScope, $location, StringUtils, ImageSrv, URLS_SERVICES, Memory, MsgHttpSrv, MsgUtils
-      ,LibPhotoSrv) {
+      ,LibPhotoSrv, ArrayUtils) {
     var self = this;
 
     self.user = {};
@@ -41,6 +41,7 @@ angular.module('libshareApp')
         $rootScope.newUser = false;
         self.profile = addInfoCountry({codUsu: userDetails.id});
         self.profile.allowShowPhone = false;
+        self.profile.active = true;
         self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
       } else if (!StringUtils.isEmpty(userDetails)) {
 
@@ -60,7 +61,8 @@ angular.module('libshareApp')
               self.imageProfile = ImageSrv.buildUrlImage(0,undefined, undefined);
             } else {
               self.profile.allowShowPhone = self.profile.allowShowPhone == 'S';
-              
+              self.profile.active = self.profile.active == 'S';
+
               self.imageProfile = ImageSrv.buildUrlImage(userDetails.id,self.profile.pathFoto, undefined);
 
               convertToDate(self.profile);
@@ -112,12 +114,44 @@ angular.module('libshareApp')
 
       self.profile.pathFoto = treatmentImgSave(self.imageProfile);
       self.profile.allowShowPhone =  treatmentBooleanInString(self.profile.allowShowPhone);
+      self.profile.active = treatmentBooleanInString(self.profile.active);
       self.user.profile = self.profile;
+      if (validatingBeforeSave()){
+        RestSrv.edit(URLS_SERVICES.USER, self.user, function() {
 
-      RestSrv.edit(URLS_SERVICES.USER, self.user, function() {
+          self.profile.allowShowPhone = self.profile.allowShowPhone == "S";
+          self.profile.active = self.profile.active == "S";
+          ngNotify.set('Perfil \'' + self.profile.name + '\' atualizado.', 'success');
+        });
 
-        ngNotify.set('Perfil \'' + self.profile.name + '\' atualizado.', 'success');
+      } else {
+        MsgUtils.showError("Campos com * são obrigatórios.");
+      }
+    }
+
+    function validatingBeforeSave(){
+      var continuar = true;
+      var profile = self.profile;
+      var user = self.user;
+
+      var fieldsProfile = ['name','lastName', 'dateBirth', 'cep', 'address', 'number', 'neighborhood', 'region', 'telephone'];
+      var fieldsUser = ['password'];
+
+      ArrayUtils.forEach(fieldsProfile, function(item, index){
+        if (StringUtils.isEmpty(profile[item])) {
+          continuar = false;
+          return false;
+        }
       });
+
+      ArrayUtils.forEach(fieldsUser, function(item, index){
+        if (StringUtils.isEmpty(user[item])) {
+          continuar = false;
+          return false;
+        }
+      });
+
+      return continuar;
     }
 
     function treatmentImgSave(img){

@@ -220,8 +220,8 @@ angular.module('libshareApp')
       if (continueSolicitation) {
 
         var sharing= {
-          userOrigin: self.userDetails.id,
-          userDestiny: self.profile.codUsu,
+          userOrigin: self.profile.codUsu,
+          userDestiny: self.userDetails.id,
           sharingItens: [],
           sharingDateAndHour: '', 
           sharingValue: 0

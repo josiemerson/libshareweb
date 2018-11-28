@@ -25,6 +25,7 @@ angular
     ,'SHARING_PORTAL': PRIVATE + '/sharingportal/'
     ,'SHARING_PORTAL_NEW': PRIVATE + '/sharingportal/newSharing/'
     ,'SHARING_PORTAL_GET_SHARING': PRIVATE + '/sharingportal/getSharing/'
+    ,'SHARING_PORTAL_SAVE_STATUS_SHARING': PRIVATE + '/sharingportal/saveStatusSharing/'
     ,'FRIENDS': PRIVATE + '/friends/'
     ,'FRIENDS_STATUS': PRIVATE + '/friends/statusFriend/'
     ,'FRIENDS_NEW_FRIEND': PRIVATE + '/friends/newFriend/'
