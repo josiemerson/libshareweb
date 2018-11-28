@@ -6,6 +6,7 @@ angular.module('libshareApp')
     var self = this;
 
     self.showFilter = true;
+    self.contador = 0;
     self.gridOptions = {
       columnDefs: getColumnDefs('sharing'),
       rowData: null,
@@ -56,6 +57,8 @@ angular.module('libshareApp')
           findSharing();
         }
   
+        $localStorage.codUserAddSharing = undefined;
+
         $timeout(function () {
           self.gridOptions.api.setRowData(undefined);
         }, 500);
@@ -152,6 +155,9 @@ angular.module('libshareApp')
             //   return DateUtils.formatDate(params.data.sharingDateAndHour);
             // }
             headerName: "Data Compartilhamento", field: "sharingDateAndHour"
+            ,valueGetter: function chainValueGetter(params) {
+              return DateUtils.formatDate(params.data.sharingDateAndHour);
+            }
           },
           { headerName: "Valor Compartilhamento", field: "sharingValue" }
         ];
@@ -164,9 +170,9 @@ angular.module('libshareApp')
           { headerName: "Titulo Livro", field: "book.name" },
           {
             headerName: "Data devolução", field: "devolutionDate", cellStyle: { 'text-align': 'right' }
-            // ,valueGetter: function chainValueGetter(params) {
-            //   return DateUtils.formatDate(params.data.schedulingDate);
-            // }
+            ,valueGetter: function chainValueGetter(params) {
+              return DateUtils.formatDate(params.data.devolutionDate);
+            }
           },
           { headerName: "Observação Emprestador", field: "observation" , width: 265},
           { headerName: "Status item", field: "statusSharingPresentation", width: 150 },
@@ -197,6 +203,7 @@ angular.module('libshareApp')
             });
           });
 
+          self.contador = 0;
           self.gridOptions.api.setRowData(self.sharingEntity);
 
 
@@ -292,57 +299,64 @@ angular.module('libshareApp')
 
     function responseSharing(dataItens) {
       var selectedRows = dataItens;
+      if (selectedRows) {
+        if(self.sharingMaster.userOrigin.id != self.codUsuLogged) {
+          MsgUtils.showAlert("É necessário ser usuário emprestador para responder a solicitação.");
+        } else if (selectedRows.length > 1){
+          MsgUtils.showAlert("É necessário selecionar apenas um item do compartilhamento.");
+        } else {
 
-      if (selectedRows && selectedRows.length > 1){
-        MsgUtils.showAlert("É necessário selecionar apenas um item do compartilhamento.");
-      } else {
-
-        var params = {
-          templateUrl: '../src/directives/lib-response-sharing/lib-response-sharing.tpl.html'
-          ,controller: 'SharingResponseCtrl'
-          ,data : {
-            codSharing: self.sharingMaster.id
-            ,codItemSharing: selectedRows.id
+          var params = {
+            templateUrl: '../src/directives/lib-response-sharing/lib-response-sharing.tpl.html'
+            ,controller: 'SharingResponseCtrl'
+            ,data : {
+              codSharing: self.sharingMaster.id
+              ,codItemSharing: selectedRows.id
+            }
           }
-        }
 
-        LibPopUpSrv.open(undefined, undefined, params).then(function(response){
-          findSharing();
-        }, function(){
-  //cancel
-        });
+          LibPopUpSrv.open(undefined, undefined, params).then(function(response){
+            findSharing();
+          }, function(){
+    //cancel
+          });
+        }
       }
     }
-
+    
     function onRowSelected(event) {
 
-      if (event ) {
+      if (event && self.contador == 0 || self.contador == 1 ) {
         self.sharingMaster = event.node.data;
 
-        var firsSelection = (arrSharingItensSelected.length == 0 && arrSharingItensOld.length == 0);
-        var otherSelection = (arrSharingItensSelected.length > 0 && arrSharingItensOld.length == 0);
-        if (firsSelection || otherSelection){
-          if (otherSelection) {
-            arrSharingItensOld = arrSharingItensSelected;
-            arrSharingItensSelected = [];
-          }
+        // var firsSelection = (arrSharingItensSelected.length == 0 && arrSharingItensOld.length == 0);
+        // var otherSelection = (arrSharingItensSelected.length > 0 && arrSharingItensOld.length == 0);
+        // if (firsSelection || otherSelection){
+        //   if (otherSelection) {
+        //     arrSharingItensOld = arrSharingItensSelected;
+        //     arrSharingItensSelected = [];
+        //   }
 
-          ArrayUtils.forEach(self.gridBuildOptionItem, function(item, index, arr){
-            if (event.node.data.id == item.sharing) {
-                arrSharingItensSelected.push(item);
-            }
-          });
-  
-          if (arrSharingItensSelected.length > 0) {
-            self.gridOptionsItens.api.setRowData(arrSharingItensSelected);
-          } else if (arrSharingItensOld.length > 0 ){
-            arrSharingItensSelected 
+        arrSharingItensSelected = [];
+        ArrayUtils.forEach(self.gridBuildOptionItem, function(item, index, arr){
+          if (event.node.data.id == item.sharing) {
+              arrSharingItensSelected.push(item);
           }
-        } else {
-  
-          arrSharingItensOld = [];
-        }
+        });
 
+        if (arrSharingItensSelected.length > 0) {
+          self.gridOptionsItens.api.setRowData(arrSharingItensSelected);
+        } 
+            // else if (arrSharingItensOld.length > 0 ){
+        //     arrSharingItensSelected 
+        //   }
+        // } else {
+  
+        //   arrSharingItensOld = [];
+        // }
+        self.contador = self.contador + 1;
+      } else {
+        self.contador = 1;
       }
 
 

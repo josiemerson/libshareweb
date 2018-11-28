@@ -5,7 +5,7 @@ angular.module('libshareApp')
      'A': 'Alugado', 'D' : 'Disponível', 'E': 'Emprestado', 'V': 'Vendido', 'I': 'Indisponível'
   })
   .constant('ITEM_SHARING_STATUS', {
-     'L': 'Liberado', 'N' : 'Negado', 'P': 'Pendente'
+     'A': 'Aprovado', 'N' : 'Negado', 'P': 'Pendente'
   })
   .constant('TYPE_SHARING', {
      'C': 'Compartilhamento', 'V' : 'Venda'
